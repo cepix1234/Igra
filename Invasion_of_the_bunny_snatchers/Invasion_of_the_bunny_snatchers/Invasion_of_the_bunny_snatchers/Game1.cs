@@ -95,17 +95,10 @@ namespace Invasion_of_the_bunny_snatchers
             _LevelText.font = _helthBar.font;
             _LevelText.slika = false;
             _LevelText.helthBar = false;
-            _LevelText.text = "Trenutna stopnja: 1!";
+            _LevelText.text = "Trenutna stopnja: 1";
             _LevelText.position = new Vector2(((int)graphics.GraphicsDevice.Viewport.Width / 2)-100, 0);
             Components.Add(_LevelText);
 
-            DrawScripts.AnimSprite _Angle = new DrawScripts.AnimSprite(this);
-            _Angle.font = _helthBar.font;
-            _Angle.slika = false;
-            _Angle.helthBar = false;
-            _Angle.text = "Trenutn kot :!";
-            _Angle.position = new Vector2(((int)graphics.GraphicsDevice.Viewport.Width / 2) - 100, 100);
-            Components.Add(_Angle);
 
             //----------------------------------------------------------------------------dodajanje croshaira
             DrawScripts.AnimSprite _spCrossHair = new DrawScripts.AnimSprite(this);
@@ -120,7 +113,7 @@ namespace Invasion_of_the_bunny_snatchers
             Components.Add(_spCrossHair);
 
             //----------------------------------------------------------------------------------------------------------------------------------dodajanje motorja za igralca
-            Motors.CharacterMovement _charMove = new Motors.CharacterMovement(this, _aspCharacter, _aspCharacterLegs, _helthBar, _spCrossHair, _Angle);
+            Motors.CharacterMovement _charMove = new Motors.CharacterMovement(this, _aspCharacter, _aspCharacterLegs, _helthBar, _spCrossHair);
             Components.Add(_charMove);
 
             //-------------------------------------------------------------------dodajanje enemijev
@@ -185,7 +178,6 @@ namespace Invasion_of_the_bunny_snatchers
             _drawables.Add(_spCrossHair);
             _drawables.Add(_helthBar);
             _drawables.Add(_LevelText);
-            _drawables.Add(_Angle);
 
             DrawScripts.DrawInOrder _draw = new DrawScripts.DrawInOrder(this,_drawables);
             Components.Add(_draw);

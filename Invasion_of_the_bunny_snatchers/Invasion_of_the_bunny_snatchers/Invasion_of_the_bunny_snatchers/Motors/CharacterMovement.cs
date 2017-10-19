@@ -21,13 +21,12 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         DrawScripts.AnimSprite _legs;
         DrawScripts.AnimSprite _helthBar;
         DrawScripts.AnimSprite _crossHair;
-        DrawScripts.AnimSprite _text;
         KeyboardState keyState;
         int frameCount;
         int oldState = 0;
         int helth;
 
-        public CharacterMovement(Game game, DrawScripts.AnimSprite CharBody, DrawScripts.AnimSprite CharLegs, DrawScripts.AnimSprite helthBar, DrawScripts.AnimSprite crosshair, DrawScripts.AnimSprite text)
+        public CharacterMovement(Game game, DrawScripts.AnimSprite CharBody, DrawScripts.AnimSprite CharLegs, DrawScripts.AnimSprite helthBar, DrawScripts.AnimSprite crosshair)
             : base(game)
         {
             // TODO: Construct any child components here
@@ -35,7 +34,6 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             _legs = CharLegs;
             _helthBar = helthBar;
             _crossHair = crosshair;
-            _text = text;
         }
 
         /// <summary>
@@ -76,20 +74,23 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             _crossHair.position = new Vector2(_mouseState.X, _mouseState.Y);
 
             double kot = Math.Atan2(_mouseState.Y - _body.position.Y, _mouseState.X - _body.position.X);
-            if(kot <=-0.5 && kot >=-2.5)
+            if (kot <= -0.5 && kot >= -2.5)
             {
                 _body.currentAnim = 1;
-            }else if(kot <=-2.5 || kot >=2.5)
+            }
+            else if (kot <= -2.5 || kot >= 2.5)
             {
                 _body.currentAnim = 3;
-            }else if(kot <=2.5 && kot >=0.5)
+            }
+            else if (kot <= 2.5 && kot >= 0.5)
             {
                 _body.currentAnim = 2;
-            }else
+            }
+            else
             {
                 _body.currentAnim = 0;
             }
-            _body.center = new Vector2(_body.animations[_body.currentAnim].Width/2, _body.animations[_body.currentAnim].Height / 2);
+            _body.center = new Vector2(_body.animations[_body.currentAnim].Width / 2, _body.animations[_body.currentAnim].Height / 2);
         }
 
         public void Movement (GameTime gameTime)
