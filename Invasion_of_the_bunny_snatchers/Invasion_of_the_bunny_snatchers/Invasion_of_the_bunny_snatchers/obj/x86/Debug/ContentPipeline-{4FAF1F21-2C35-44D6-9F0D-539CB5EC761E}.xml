@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
+  <Asset Type="Pipeline:BuildItemCollection">
+    <Item>
+      <Source>Assets\Background\BackGround.png</Source>
+      <Name>Assets\Background\BackGround</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Background\BackGround.xnb</Output>
+      <Time>2017-10-16T18:29:26.3694759+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\Character\Bullet.png</Source>
+      <Name>Assets\Character\Bullet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Character\Bullet.xnb</Output>
+      <Time>2017-10-16T18:29:26.4015529+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\Character\CrossHair.png</Source>
+      <Name>Assets\Character\CrossHair</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Character\CrossHair.xnb</Output>
+      <Time>2017-10-16T18:29:26.4206432+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\Character\PowerUps.png</Source>
+      <Name>Assets\Character\PowerUps</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Character\PowerUps.xnb</Output>
+      <Time>2017-10-16T18:29:26.4431968+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\Controls\Jostick.png</Source>
+      <Name>Assets\Controls\Jostick</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Controls\Jostick.xnb</Output>
+      <Time>2017-10-16T18:29:26.4687685+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\Enemy\Enemy.png</Source>
+      <Name>Assets\Enemy\Enemy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Enemy\Enemy.xnb</Output>
+      <Time>2017-10-18T20:21:32.5515258+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\Character\Character.png</Source>
+      <Name>Assets\Character\Character</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Character\Character.xnb</Output>
+      <Time>2017-10-19T12:29:05.092425+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\Font\Font.spritefont</Source>
+      <Name>Assets\Font\Font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Font\Font.xnb</Output>
+      <Time>2017-10-18T16:23:38.1352239+02:00</Time>
+    </Item>
+    <BuildSuccessful>true</BuildSuccessful>
+    <Settings>
+      <ContentProjectGUID>{4FAF1F21-2C35-44D6-9F0D-539CB5EC761E}</ContentProjectGUID>
+      <TargetPlatform>Windows</TargetPlatform>
+      <TargetProfile>Reach</TargetProfile>
+      <BuildConfiguration>Debug</BuildConfiguration>
+      <CompressContent>false</CompressContent>
+      <RootDirectory>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchersContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\</OutputDirectory>
+    </Settings>
+    <Assemblies>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Value>2011-09-01T16:22:30+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Value>2011-09-01T16:22:30+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Value>2011-09-01T16:22:30+02:00</Value>
+      </Assembly>
+      <Assembly>
+        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2017-10-06T13:46:24.0399514+02:00</Value>
+      </Assembly>
+    </Assemblies>
+  </Asset>
+</XnaContent>

@@ -1,0 +1,8 @@
+Content\Assets\Background\BackGround.xnb
+Content\Assets\Character\Bullet.xnb
+Content\Assets\Character\CrossHair.xnb
+Content\Assets\Character\PowerUps.xnb
+Content\Assets\Controls\Jostick.xnb
+Content\Assets\Enemy\Enemy.xnb
+Content\Assets\Character\Character.xnb
+Content\Assets\Font\Font.xnb
