@@ -37,6 +37,7 @@ namespace Invasion_of_the_bunny_snatchers
             // TODO: Add your initialization logic here
             //doc = new System.Xml.XmlDocument();
             //doc.Load("");
+            
 
             //----------------------------------------------------------------------------Dodajanje ozadja
             DrawScripts.AnimSprite _spBackground = new DrawScripts.AnimSprite(this);
@@ -112,9 +113,18 @@ namespace Invasion_of_the_bunny_snatchers
             _spCrossHair.slika = true;
             Components.Add(_spCrossHair);
 
-            //----------------------------------------------------------------------------------------------------------------------------------dodajanje motorja za igralca
-            Motors.CharacterMovement _charMove = new Motors.CharacterMovement(this, _aspCharacter, _aspCharacterLegs, _helthBar, _spCrossHair);
-            Components.Add(_charMove);
+            //----------------------------------------------------------------------------dodajanje metka
+            DrawScripts.AnimSprite _spBullet = new DrawScripts.AnimSprite(this);
+            _spBullet.texture = Content.Load<Texture2D>("Assets\\Character\\Bullet");
+            _spBullet.position = Vector2.Zero;
+            _spBullet.animations = new List<Rectangle>();
+            _spBullet.animations.Add(new Rectangle(0, 0, _spBullet.texture.Width, _spBullet.texture.Height));
+            _spBullet.scale = new Vector2(1, 1);
+            _spBullet.center = new Vector2(_spBullet.texture.Width / 2, _spBullet.texture.Height / 2);
+            _spBullet.currentAnim = 0;
+            _spBullet.slika = true;
+            Components.Add(_spBullet);
+
 
             //-------------------------------------------------------------------dodajanje enemijev
             DrawScripts.AnimSprite _aspEnemy = new DrawScripts.AnimSprite(this);
@@ -168,20 +178,31 @@ namespace Invasion_of_the_bunny_snatchers
             Components.Add(_powerUps);
 
             //------------------------------------------------------------------------------izrisevanje vseh objektov s skripto DrawInOrder
-            List<DrawScripts.AnimSprite> _drawables = new List<DrawScripts.AnimSprite>();
-            _drawables.Add(_spBackground);
-            _drawables.Add(_aspEnemy);
-            _drawables.Add(_aspEnemy2);
-            _drawables.Add(_powerUps);
-            _drawables.Add(_aspCharacter);
-            _drawables.Add(_aspCharacterLegs);
-            _drawables.Add(_spCrossHair);
-            _drawables.Add(_helthBar);
-            _drawables.Add(_LevelText);
+            
+            List<DrawScripts.AnimSprite> _background = new List<DrawScripts.AnimSprite>();
+            _background.Add(_spBackground);
 
-            DrawScripts.DrawInOrder _draw = new DrawScripts.DrawInOrder(this,_drawables);
+            List<DrawScripts.AnimSprite> _enemys = new List<DrawScripts.AnimSprite>();
+            _enemys.Add(_aspEnemy);
+            _enemys.Add(_aspEnemy2);
+            _enemys.Add(_powerUps);
+
+            List<DrawScripts.AnimSprite> _player = new List<DrawScripts.AnimSprite>();
+            _player.Add(_aspCharacter);
+            _player.Add(_aspCharacterLegs);
+
+
+            List<DrawScripts.AnimSprite> _UI = new List<DrawScripts.AnimSprite>();
+            _UI.Add(_spCrossHair);
+            _UI.Add(_helthBar);
+            _UI.Add(_LevelText);
+
+            DrawScripts.DrawInOrder _draw = new DrawScripts.DrawInOrder(this,_background,_enemys,_player,_UI);
             Components.Add(_draw);
 
+            //----------------------------------------------------------------------------------------------------------------------------------dodajanje motorja za igralca
+            Motors.CharacterMovement _charMove = new Motors.CharacterMovement(this, _aspCharacter, _aspCharacterLegs, _helthBar, _spCrossHair, _spBullet, _draw);
+            Components.Add(_charMove);
 
             base.Initialize();
         }

@@ -21,12 +21,16 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         DrawScripts.AnimSprite _legs;
         DrawScripts.AnimSprite _helthBar;
         DrawScripts.AnimSprite _crossHair;
+        DrawScripts.AnimSprite _bullet;
+        DrawScripts.DrawInOrder _draw;
+        Motors.BulletMovement _bulletsMotor;
         KeyboardState keyState;
         int frameCount;
         int oldState = 0;
         int helth;
+        float lastFire = 0;
 
-        public CharacterMovement(Game game, DrawScripts.AnimSprite CharBody, DrawScripts.AnimSprite CharLegs, DrawScripts.AnimSprite helthBar, DrawScripts.AnimSprite crosshair)
+        public CharacterMovement(Game game, DrawScripts.AnimSprite CharBody, DrawScripts.AnimSprite CharLegs, DrawScripts.AnimSprite helthBar, DrawScripts.AnimSprite crosshair, DrawScripts.AnimSprite bullet, DrawScripts.DrawInOrder draw)
             : base(game)
         {
             // TODO: Construct any child components here
@@ -34,6 +38,8 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             _legs = CharLegs;
             _helthBar = helthBar;
             _crossHair = crosshair;
+            _bullet = bullet;
+            _draw = draw;
         }
 
         /// <summary>
@@ -53,6 +59,8 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             keyState = Keyboard.GetState();
             helth = 100;
             _helthBar.helth = helth;
+            _bulletsMotor = new Motors.BulletMovement(Game,_draw);
+            Game.Components.Add(_bulletsMotor);
             base.Initialize();
         }
 
@@ -63,9 +71,64 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         public override void Update(GameTime gameTime)
         {
             // TODO: Add your update code here
+            
             Movement(gameTime);
             Crosshair();
+
+            //shoot 60rpm
+            lastFire += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (lastFire> 1)
+            {
+                MouseState _mouseState = Mouse.GetState();
+                shoot(_mouseState);
+                lastFire = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                lastFire = 0;
+            }
             base.Update(gameTime);
+        }
+
+        public void shoot(MouseState _mouseState)
+        {
+            Vector2 direction = _crossHair.position- _body.position;
+            float distance = direction.Length();
+            direction /= distance;
+            direction.Normalize();
+            double kot = Math.Atan2(_mouseState.Y - _body.position.Y, _mouseState.X - _body.position.X);
+            Vector2 position = _body.position;
+            switch(_body.currentAnim)
+            {
+                case 0:
+                    position = new Vector2(position.X+16*2, position.Y);
+                    break;
+
+                case 1:
+                    position = new Vector2(position.X, position.Y-5*2);
+                    break;
+
+                case 2:
+                    position = new Vector2(position.X,position.Y+10*2);
+                    break;
+
+                case 3:
+                    position = new Vector2(position.X - 13 * 2, position.Y);
+                    break;
+            }
+
+            DrawScripts.AnimSprite bulet = new DrawScripts.AnimSprite(Game);
+            bulet.texture = _bullet.texture;
+            bulet.position = position;
+            bulet.animations = new List<Rectangle>();
+            bulet.animations.Add(new Rectangle(0, 0, bulet.texture.Width, bulet.texture.Height));
+            bulet.scale = new Vector2(1, 1);
+            bulet.center = new Vector2(bulet.texture.Width / 2, bulet.texture.Height / 2);
+            bulet.currentAnim = 0;
+            bulet.slika = true;
+            bulet.direction = direction;
+            bulet.rotation = (float)kot;
+            Game.Components.Add(bulet);
+            _bulletsMotor._bullets.Add(bulet);
+            _draw._bullets.Add(bulet);
+
         }
 
         public void Crosshair ()
@@ -130,7 +193,6 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                 oldState = 6;
                 pressed = true;
                 direction += new Vector2(-1, 0);
-                _body.currentAnim = 3;
                 frameCount++;
                 int frameCountD = frameCount / 15;
                 int anim = frameCountD % 2;
@@ -141,7 +203,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                         _legs.currentAnim = 3;
                         break;
                     case 1:
-                        _legs.currentAnim = 5;
+                        _legs.currentAnim = 4;
                         break;
                 }
             }
@@ -150,7 +212,6 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                 oldState = 5;
                 pressed = true;
                 direction += new Vector2(0, 1);
-                _body.currentAnim = 2;
                 frameCount++;
                 int frameCountD = frameCount / 15;
                 int anim = frameCountD % 4;
@@ -176,7 +237,6 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                 oldState = 4;
                 pressed = true;
                 direction += new Vector2(1, 0);
-                _body.currentAnim = 0;
                 frameCount++;
                 int frameCountD = frameCount / 15;
                 int anim = frameCountD % 2;

@@ -39,6 +39,10 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
         public int helth { get; set; }
         public bool helthBar { get; set; }
 
+        //za bullet
+        public Vector2 direction { get; set; }
+        public float rotation { get; set; }
+
 
         #endregion
 
