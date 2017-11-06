@@ -65,7 +65,7 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
             }
             if (_aspLegs.position.Y + (20 * _aspLegs.scale.Y) >= Game.GraphicsDevice.Viewport.Height)
             {
-                _aspCharacter.position = new Vector2(_aspCharacter.position.X,(int)Game.GraphicsDevice.Viewport.Height - (_aspLegs.texture.Height-21*_aspLegs.scale.Y));
+                _aspCharacter.position = new Vector2(_aspCharacter.position.X,(int)Game.GraphicsDevice.Viewport.Height - (_aspLegs.texture.Height-22*_aspLegs.scale.Y));
             }
         }
     }

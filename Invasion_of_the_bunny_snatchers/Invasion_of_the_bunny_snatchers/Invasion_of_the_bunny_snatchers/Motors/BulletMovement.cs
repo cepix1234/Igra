@@ -49,7 +49,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             List<int> iji = new List<int>();
             foreach(DrawScripts.AnimSprite bullet in _bullets)
             {
-                bullet.position += bullet.direction *100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                bullet.position += bullet.direction *200 * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if(bullet.position.X < 0)
                 {
                     iji.Add(i);
