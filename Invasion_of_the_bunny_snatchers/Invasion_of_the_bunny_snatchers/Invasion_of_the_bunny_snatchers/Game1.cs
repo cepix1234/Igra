@@ -204,6 +204,10 @@ namespace Invasion_of_the_bunny_snatchers
             Motors.CharacterMovement _charMove = new Motors.CharacterMovement(this, _aspCharacter, _aspCharacterLegs, _helthBar, _spCrossHair, _spBullet, _draw);
             Components.Add(_charMove);
 
+            //----------------------------------------------------------------------------dodajanje collider za igralca
+            Colliders.CharacterCollider _charCollider = new Colliders.CharacterCollider(this,_aspCharacter,_aspCharacterLegs);
+            Components.Add(_charCollider);
+
             base.Initialize();
         }
 

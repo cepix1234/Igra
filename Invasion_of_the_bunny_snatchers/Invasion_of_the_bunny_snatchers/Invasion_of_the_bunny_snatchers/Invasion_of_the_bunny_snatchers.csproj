@@ -71,6 +71,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Colliders\CharacterCollider.cs" />
     <Compile Include="DrawScripts\DrawInOrder.cs" />
     <Compile Include="Motors\BulletMovement.cs" />
     <Compile Include="Motors\CharacterMovement.cs" />
