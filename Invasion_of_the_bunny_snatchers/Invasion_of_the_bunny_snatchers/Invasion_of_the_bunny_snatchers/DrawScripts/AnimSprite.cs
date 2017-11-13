@@ -51,6 +51,7 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
         //za enemy
         public Boolean attack { get; set; }
         public int enemyType { get; set; }
+        public SpriteEffects orientacija { get; set; }
 
 
         #endregion

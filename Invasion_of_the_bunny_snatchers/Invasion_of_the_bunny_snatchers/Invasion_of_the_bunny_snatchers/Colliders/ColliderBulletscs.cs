@@ -19,12 +19,15 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
     {
         public List<DrawScripts.AnimSprite> _bullets;
         public List<DrawScripts.AnimSprite> _enemys;
-        public ColliderBulletscs(Game game,List<DrawScripts.AnimSprite> bullets, List<DrawScripts.AnimSprite> enemys)
+        public DrawScripts.DrawInOrder _draw;
+        Motors.BulletMovement motor;
+        public ColliderBulletscs(Game game, List<DrawScripts.AnimSprite> bullets, List<DrawScripts.AnimSprite> enemys, DrawScripts.DrawInOrder draw)
             : base(game)
         {
             // TODO: Construct any child components here
             _bullets = bullets;
             _enemys = enemys;
+            _draw = draw;
         }
 
         /// <summary>
@@ -47,25 +50,20 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
             // TODO: Add your update code here
 
             bullethitrabit();
-            characterhitPowerup();
             base.Update(gameTime);
-        }
-
-        private void characterhitPowerup()
-        {
-
-        }           
+        }       
 
 
         private void bullethitrabit()
         {
+            motor = Game.Components.OfType<Motors.BulletMovement>().ToList()[0];//za pomoc pri ostalih skritptah lahko dobim component
             foreach (DrawScripts.AnimSprite bullet in _bullets)
             {
                 foreach (DrawScripts.AnimSprite enemy in _enemys)
                 {
                     if (!enemy.powerup)
                     {
-                        if (enemy.position.X + enemy.texture.Width >= bullet.position.X && enemy.position.Y + enemy.texture.Height >= bullet.position.Y && enemy.position.X <= bullet.position.X && enemy.position.Y <= bullet.position.Y)
+                        if (enemy.position.X + 15 * enemy.scale.X >= bullet.position.X && enemy.position.Y + 15 * enemy.scale.Y >= bullet.position.Y && enemy.position.X - 15 * enemy.scale.X <= bullet.position.X && enemy.position.Y - 15 * enemy.scale.Y <= bullet.position.Y)
                         {
                             // kill enemy and bullet check if spawn power up
                         }

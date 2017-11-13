@@ -19,12 +19,14 @@ namespace Invasion_of_the_bunny_snatchers.Motors
     {
         List <DrawScripts.AnimSprite> _enemys;
         Colliders.ColliderBulletscs _bulletcolider;
-        public EnemyMovement(Game game, List <DrawScripts.AnimSprite> enemys,Colliders.ColliderBulletscs bulletcol)
+        DrawScripts.AnimSprite _player;
+        public EnemyMovement(Game game, List <DrawScripts.AnimSprite> enemys,Colliders.ColliderBulletscs bulletcol, DrawScripts.AnimSprite player)
             : base(game)
         {
             // TODO: Construct any child components here
             _enemys = enemys;
             _bulletcolider = bulletcol;
+            _player = player;
         }
 
         /// <summary>
@@ -44,7 +46,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         public override void Update(GameTime gameTime)
         {
             // TODO: Add your update code here
-            
+            EnemyAI();
             base.Update(gameTime);
         }
 
@@ -53,13 +55,27 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             foreach (DrawScripts.AnimSprite enemy in _enemys)
             {
                 //movement for enemy based on type
-                if(enemy.enemyType == 0)
-                {
+                //if(enemy.enemyType == 0)
+                //{
 
-                }else if(enemy.enemyType == 1)
-                {
-
-                }
+                //}else if(enemy.enemyType == 1)
+                //{
+                //    Vector2 direction = _player.position - enemy.position;
+                //    float distance = direction.Length();
+                //    direction /= distance;
+                //    direction.Normalize();
+                //    double kot = Math.Atan2(_player.position.Y - enemy.position.Y, _player.position.X - enemy.position.X);
+                //    Console.Out.WriteLine(kot);
+                //    if(kot <= 1.66 && kot >= -1.56)
+                //    {
+                //        enemy.orientacija = SpriteEffects.FlipHorizontally;
+                //    }else
+                //    {
+                //        enemy.orientacija = SpriteEffects.None;
+                //        kot = kot - 3.2f;
+                //    }
+                //    enemy.rotation = (float)kot;
+                //}
 
 
 

@@ -58,7 +58,7 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
 
             foreach(DrawScripts.AnimSprite _drawable in _enemys)
             {
-                _spriteBatch.Draw(_drawable.texture, _drawable.position, _drawable.animations[_drawable.currentAnim], Color.White, 0f, _drawable.center, _drawable.scale, SpriteEffects.None, 0f);
+                _spriteBatch.Draw(_drawable.texture, _drawable.position, _drawable.animations[_drawable.currentAnim], Color.White, _drawable.rotation ,_drawable.center, _drawable.scale, _drawable.orientacija, 0f);
             }
 
             foreach(DrawScripts.AnimSprite _drawable in _bullets)

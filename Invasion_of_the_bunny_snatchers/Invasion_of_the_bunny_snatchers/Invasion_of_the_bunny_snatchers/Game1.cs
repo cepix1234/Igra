@@ -137,13 +137,14 @@ namespace Invasion_of_the_bunny_snatchers
             _aspEnemy.animations.Add(new Rectangle(3, 7, 43, 19));
             _aspEnemy.animations.Add(new Rectangle(56, 3, 43, 22));
             _aspEnemy.scale = new Vector2(2f, 2f);
-            _aspEnemy.position = new Vector2(50, 50);
+            _aspEnemy.position = new Vector2(50, 200);
             _aspEnemy.currentAnim = 0;
-            _aspEnemy.center = Vector2.Zero;
+            _aspEnemy.center = new Vector2(21,11);
             _aspEnemy.slika = true;
             _aspEnemy.powerup = false;
             _aspEnemy.attack = false;
             _aspEnemy.enemyType = 0;
+            _aspEnemy.orientacija = SpriteEffects.None;
             Components.Add(_aspEnemy);
 
             DrawScripts.AnimSprite _aspEnemy2 = new DrawScripts.AnimSprite(this);
@@ -152,13 +153,14 @@ namespace Invasion_of_the_bunny_snatchers
             _aspEnemy2.animations.Add(new Rectangle(1, 36, 43, 20));
             _aspEnemy2.animations.Add(new Rectangle(56, 29, 43, 22));
             _aspEnemy2.scale = new Vector2(2f, 2f);
-            _aspEnemy2.position = new Vector2(200, 50);
+            _aspEnemy2.position = new Vector2(200, 200);
             _aspEnemy2.currentAnim = 1;
-            _aspEnemy2.center = Vector2.Zero;
+            _aspEnemy2.center = new Vector2(21,11);
             _aspEnemy2.slika = true;
             _aspEnemy2.powerup = false;
             _aspEnemy2.attack = false;
             _aspEnemy2.enemyType = 1;
+            _aspEnemy2.orientacija = SpriteEffects.FlipHorizontally;
             Components.Add(_aspEnemy2);
             
             //--------------------------------------------------------------------------------konec dodajanje enimejv
@@ -194,11 +196,9 @@ namespace Invasion_of_the_bunny_snatchers
             _enemys.Add(_aspEnemy2);
             _enemys.Add(_powerUps);
 
-            Colliders.ColliderBulletscs collider = new Colliders.ColliderBulletscs(this, _enemys, _enemys);
-            Components.Add(collider);
+            
 
-            Motors.EnemyMovement _enemyMove = new Motors.EnemyMovement(this, _enemys, collider);
-            Components.Add(_enemyMove);
+            
             
 
             List<DrawScripts.AnimSprite> _player = new List<DrawScripts.AnimSprite>();
@@ -213,6 +213,12 @@ namespace Invasion_of_the_bunny_snatchers
 
             DrawScripts.DrawInOrder _draw = new DrawScripts.DrawInOrder(this,_background,_enemys,_player,_UI);
             Components.Add(_draw);
+
+            Colliders.ColliderBulletscs collider = new Colliders.ColliderBulletscs(this, _enemys, _enemys, _draw);
+            Components.Add(collider);
+
+            Motors.EnemyMovement _enemyMove = new Motors.EnemyMovement(this, _enemys, collider, _aspCharacter);
+            Components.Add(_enemyMove);
 
             //----------------------------------------------------------------------------------------------------------------------------------dodajanje motorja za igralca
             Motors.CharacterMovement _charMove = new Motors.CharacterMovement(this, _aspCharacter, _aspCharacterLegs, _helthBar, _spCrossHair, _spBullet, _draw, collider);

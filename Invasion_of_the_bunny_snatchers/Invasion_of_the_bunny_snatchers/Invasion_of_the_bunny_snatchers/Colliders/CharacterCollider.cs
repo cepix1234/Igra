@@ -59,11 +59,11 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
             {
                 if (!enemy.powerup)
                 {
-                    if (_aspCharacter.position.X + (13 * _aspCharacter.scale.X) >= enemy.position.X)
+                    if (_aspCharacter.position.X + (13 * _aspCharacter.scale.X) >= enemy.position.X-22*enemy.scale.X)
                     {
-                        if (_aspCharacter.position.X - (11 * _aspCharacter.scale.X) <= enemy.position.X+ 43*enemy.scale.X)
+                        if (_aspCharacter.position.X - (11 * _aspCharacter.scale.X) <= enemy.position.X+ 22*enemy.scale.X)
                         {
-                            if (_aspCharacter.position.Y - (20 * _aspCharacter.scale.Y) <= enemy.position.Y)
+                            if (_aspCharacter.position.Y - (20 * _aspCharacter.scale.Y) <= enemy.position.Y-22*enemy.scale.Y)
                             {
                                 if (_aspLegs.position.Y + (20 * _aspLegs.scale.Y) >= enemy.position.Y+22*enemy.scale.Y)
                                 {
