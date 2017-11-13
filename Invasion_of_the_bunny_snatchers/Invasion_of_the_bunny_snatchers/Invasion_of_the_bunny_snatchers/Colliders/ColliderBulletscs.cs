@@ -10,21 +10,21 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 
-namespace Invasion_of_the_bunny_snatchers.Motors
+namespace Invasion_of_the_bunny_snatchers.Colliders
 {
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
-    public class EnemyMovement : Microsoft.Xna.Framework.GameComponent
+    public class ColliderBulletscs : Microsoft.Xna.Framework.GameComponent
     {
-        List <DrawScripts.AnimSprite> _enemys;
-        Colliders.ColliderBulletscs _bulletcolider;
-        public EnemyMovement(Game game, List <DrawScripts.AnimSprite> enemys,Colliders.ColliderBulletscs bulletcol)
+        public List<DrawScripts.AnimSprite> _bullets;
+        public List<DrawScripts.AnimSprite> _enemys;
+        public ColliderBulletscs(Game game,List<DrawScripts.AnimSprite> bullets, List<DrawScripts.AnimSprite> enemys)
             : base(game)
         {
             // TODO: Construct any child components here
+            _bullets = bullets;
             _enemys = enemys;
-            _bulletcolider = bulletcol;
         }
 
         /// <summary>
@@ -34,6 +34,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         public override void Initialize()
         {
             // TODO: Add your initialization code here
+
             base.Initialize();
         }
 
@@ -44,40 +45,30 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         public override void Update(GameTime gameTime)
         {
             // TODO: Add your update code here
-            
+
+            bullethitrabit();
+            characterhitPowerup();
             base.Update(gameTime);
         }
 
-        private void EnemyAI()
+        private void characterhitPowerup()
         {
-            foreach (DrawScripts.AnimSprite enemy in _enemys)
+
+        }           
+
+
+        private void bullethitrabit()
+        {
+            foreach (DrawScripts.AnimSprite bullet in _bullets)
             {
-                //movement for enemy based on type
-                if(enemy.enemyType == 0)
+                foreach (DrawScripts.AnimSprite enemy in _enemys)
                 {
-
-                }else if(enemy.enemyType == 1)
-                {
-
-                }
-
-
-
-                if (!enemy.powerup)
-                {
-                    enemy.frameEnemy++;
-                    int frameCountD = enemy.frameEnemy / 15;
-                    int anim = frameCountD % 2;
-
-                    switch (anim)
+                    if (!enemy.powerup)
                     {
-                        case 0:
-                            enemy.currentAnim = 1;
-                            break;
-
-                        case 1:
-                            enemy.currentAnim = 0;
-                            break;
+                        if (enemy.position.X + enemy.texture.Width >= bullet.position.X && enemy.position.Y + enemy.texture.Height >= bullet.position.Y && enemy.position.X <= bullet.position.X && enemy.position.Y <= bullet.position.Y)
+                        {
+                            // kill enemy and bullet check if spawn power up
+                        }
                     }
                 }
             }

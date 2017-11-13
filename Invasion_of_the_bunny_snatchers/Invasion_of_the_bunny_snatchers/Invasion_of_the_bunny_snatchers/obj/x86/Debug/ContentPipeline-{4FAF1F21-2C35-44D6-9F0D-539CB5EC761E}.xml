@@ -44,16 +44,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Controls\Jostick.xnb</Output>
-      <Time>2017-10-16T18:29:26.4687685+02:00</Time>
-    </Item>
-    <Item>
-      <Source>Assets\Enemy\Enemy.png</Source>
-      <Name>Assets\Enemy\Enemy</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Enemy\Enemy.xnb</Output>
-      <Time>2017-10-18T20:21:32.5515258+02:00</Time>
+      <Time>2017-11-06T13:45:55.3173767+01:00</Time>
     </Item>
     <Item>
       <Source>Assets\Character\Character.png</Source>
@@ -63,6 +54,15 @@
       <Options>None</Options>
       <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Character\Character.xnb</Output>
       <Time>2017-10-19T12:29:05.092425+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\Enemy\Enemy.png</Source>
+      <Name>Assets\Enemy\Enemy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Enemy\Enemy.xnb</Output>
+      <Time>2017-10-18T20:21:32.5515258+02:00</Time>
     </Item>
     <Item>
       <Source>Assets\Font\Font.spritefont</Source>
@@ -111,8 +111,8 @@
         <Value>2011-09-01T16:22:30+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2017-10-06T13:46:24.0399514+02:00</Value>
+        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2017-11-06T20:29:12.8276542+01:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

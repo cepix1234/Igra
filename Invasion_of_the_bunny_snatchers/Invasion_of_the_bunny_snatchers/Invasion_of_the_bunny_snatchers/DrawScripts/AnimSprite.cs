@@ -32,6 +32,11 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
         public Vector2 center { get; set; }
         public int currentAnim { get; set; }
         public Boolean slika { get; set; }
+        public Boolean powerup { get; set; }
+        public int frameEnemy { get; set; }
+        public int speed { get; set; }
+        public float shootSpeed { get; set; }
+        public Boolean multipleBoolets { get; set; }
 
         //za tekst
         public String text { get; set; }
@@ -42,6 +47,10 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
         //za bullet
         public Vector2 direction { get; set; }
         public float rotation { get; set; }
+
+        //za enemy
+        public Boolean attack { get; set; }
+        public int enemyType { get; set; }
 
 
         #endregion

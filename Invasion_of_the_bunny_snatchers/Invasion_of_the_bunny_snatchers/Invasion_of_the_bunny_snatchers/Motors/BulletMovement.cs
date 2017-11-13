@@ -18,11 +18,13 @@ namespace Invasion_of_the_bunny_snatchers.Motors
     public class BulletMovement : Microsoft.Xna.Framework.GameComponent
     {
         DrawScripts.DrawInOrder _draw;
-        public BulletMovement(Game game, DrawScripts.DrawInOrder draw)
+        Colliders.ColliderBulletscs _bulletcollider;
+        public BulletMovement(Game game, DrawScripts.DrawInOrder draw, Colliders.ColliderBulletscs bulletsCol)
             : base(game)
         {
             // TODO: Construct any child components here
             _draw = draw;
+            _bulletcollider = bulletsCol;
         }
 
         /// <summary>
@@ -72,6 +74,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             {
                 _bullets.RemoveAt(ij);
                 _draw._bullets.RemoveAt(ij);
+                _bulletcollider._bullets.RemoveAt(ij);
             }
             base.Update(gameTime);
         }

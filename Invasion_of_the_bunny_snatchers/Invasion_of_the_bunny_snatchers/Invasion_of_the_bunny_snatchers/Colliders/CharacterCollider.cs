@@ -19,12 +19,14 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
     {
         DrawScripts.AnimSprite _aspCharacter;
         DrawScripts.AnimSprite _aspLegs;
-        public CharacterCollider(Game game, DrawScripts.AnimSprite cahraceter, DrawScripts.AnimSprite legs)
+        public List<DrawScripts.AnimSprite> _enemys;
+        public CharacterCollider(Game game, DrawScripts.AnimSprite cahraceter, DrawScripts.AnimSprite legs, List<DrawScripts.AnimSprite> enemys)
             : base(game)
         {
             // TODO: Construct any child components here
             _aspCharacter = cahraceter;
             _aspLegs = legs;
+            _enemys = enemys;
         }
 
         /// <summary>
@@ -46,8 +48,61 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
         {
             // TODO: Add your update code here
             BorderCollision();
+            colideWithPowerup();
+            colideWithEnemy();
             base.Update(gameTime);
         }
+
+        private void colideWithEnemy()
+        {
+            foreach (DrawScripts.AnimSprite enemy in _enemys)
+            {
+                if (!enemy.powerup)
+                {
+                    if (_aspCharacter.position.X + (13 * _aspCharacter.scale.X) >= enemy.position.X)
+                    {
+                        if (_aspCharacter.position.X - (11 * _aspCharacter.scale.X) <= enemy.position.X+ 43*enemy.scale.X)
+                        {
+                            if (_aspCharacter.position.Y - (20 * _aspCharacter.scale.Y) <= enemy.position.Y)
+                            {
+                                if (_aspLegs.position.Y + (20 * _aspLegs.scale.Y) >= enemy.position.Y+22*enemy.scale.Y)
+                                {
+                                    if (enemy.attack)
+                                    {
+                                        //collide with enemy move back and take X damage
+                                        _aspCharacter.helth -= 10;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void colideWithPowerup()
+        {
+            foreach(DrawScripts.AnimSprite enemy in _enemys)
+            {
+                if(enemy.powerup)
+                {
+                    if (_aspCharacter.position.X + (13 * _aspCharacter.scale.X) >= enemy.position.X)
+                    {
+                        if (_aspCharacter.position.X - (11 * _aspCharacter.scale.X) <= enemy.position.X+27*enemy.scale.X)
+                        {
+                           if(_aspCharacter.position.Y - (20 * _aspCharacter.scale.Y) <= enemy.position.Y)
+                            {
+                                if (_aspLegs.position.Y + (20 * _aspLegs.scale.Y) >= enemy.position.Y+28*enemy.scale.Y)
+                                {
+                                    //update character based on pick up
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
         private void BorderCollision ()
         {

@@ -24,13 +24,13 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         DrawScripts.AnimSprite _bullet;
         DrawScripts.DrawInOrder _draw;
         Motors.BulletMovement _bulletsMotor;
+        Colliders.ColliderBulletscs _collider;
         KeyboardState keyState;
         int frameCount;
         int oldState = 0;
-        int helth;
         float lastFire = 0;
 
-        public CharacterMovement(Game game, DrawScripts.AnimSprite CharBody, DrawScripts.AnimSprite CharLegs, DrawScripts.AnimSprite helthBar, DrawScripts.AnimSprite crosshair, DrawScripts.AnimSprite bullet, DrawScripts.DrawInOrder draw)
+        public CharacterMovement(Game game, DrawScripts.AnimSprite CharBody, DrawScripts.AnimSprite CharLegs, DrawScripts.AnimSprite helthBar, DrawScripts.AnimSprite crosshair, DrawScripts.AnimSprite bullet, DrawScripts.DrawInOrder draw, Colliders.ColliderBulletscs collider)
             : base(game)
         {
             // TODO: Construct any child components here
@@ -40,6 +40,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             _crossHair = crosshair;
             _bullet = bullet;
             _draw = draw;
+            _collider = collider;
         }
 
         /// <summary>
@@ -57,9 +58,9 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             x = x - _legs.animations[_body.currentAnim].Width / 2;
             _legs.position = _body.position + new Vector2(x * _legs.scale.X, (_body.animations[_body.currentAnim].Bottom - 1) * _legs.scale.Y);
             keyState = Keyboard.GetState();
-            helth = 100;
-            _helthBar.helth = helth;
-            _bulletsMotor = new Motors.BulletMovement(Game,_draw);
+            _helthBar.helth = _body.helth;
+            _collider._bullets = new List<DrawScripts.AnimSprite>();
+            _bulletsMotor = new Motors.BulletMovement(Game,_draw,_collider);
             Game.Components.Add(_bulletsMotor);
             base.Initialize();
         }
@@ -74,17 +75,29 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             
             Movement(gameTime);
             Crosshair();
-
+            _helthBar.helth = _body.helth;
             //shoot 60rpm
             lastFire += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (lastFire> 1)
+            if (lastFire> _body.shootSpeed)
             {
                 MouseState _mouseState = Mouse.GetState();
-                shoot(_mouseState);
-                lastFire = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (_body.multipleBoolets)
+                {
+                    multyShot(_mouseState);       
+                }
+                else
+                {
+                    shoot(_mouseState);
+                }
+               lastFire = (float)gameTime.ElapsedGameTime.TotalSeconds;
                 lastFire = 0;
             }
             base.Update(gameTime);
+        }
+
+        public void multyShot(MouseState _mouseState)
+        {
+            //doomulty shot
         }
 
         public void shoot(MouseState _mouseState)
@@ -128,7 +141,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             Game.Components.Add(bulet);
             _bulletsMotor._bullets.Add(bulet);
             _draw._bullets.Add(bulet);
-
+            _collider._bullets.Add(bulet);
         }
 
         public void Crosshair ()
@@ -260,7 +273,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                 _legs.currentAnim = 4;
             }
 
-            _body.position += direction * 100 * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _body.position += direction * _body.speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             _legs.center = new Vector2(_legs.animations[_legs.currentAnim].Width / 2, 0);
             _legs.position = new Vector2(_body.position.X, _body.position.Y+_body.animations[_body.currentAnim].Height);
         }
