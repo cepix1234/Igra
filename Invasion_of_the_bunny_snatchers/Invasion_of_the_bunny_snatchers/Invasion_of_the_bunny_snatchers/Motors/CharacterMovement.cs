@@ -30,17 +30,17 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         int oldState = 0;
         float lastFire = 0;
 
-        public CharacterMovement(Game game, DrawScripts.AnimSprite CharBody, DrawScripts.AnimSprite CharLegs, DrawScripts.AnimSprite helthBar, DrawScripts.AnimSprite crosshair, DrawScripts.AnimSprite bullet, DrawScripts.DrawInOrder draw, Colliders.ColliderBulletscs collider)
+        public CharacterMovement(Game game)
             : base(game)
         {
             // TODO: Construct any child components here
-            _body = CharBody;
-            _legs = CharLegs;
-            _helthBar = helthBar;
-            _crossHair = crosshair;
-            _bullet = bullet;
-            _draw = draw;
-            _collider = collider;
+            _body = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._player[0];
+            _legs = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._player[1];
+            _helthBar = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._UI[1];
+            _crossHair = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._UI[0];
+            _bullet = Game.Components.OfType<DrawScripts.AnimSprite>().ToList()[6];
+            _draw = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0];
+            _collider = Game.Components.OfType<Colliders.ColliderBulletscs>().ToList()[0];
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             keyState = Keyboard.GetState();
             _helthBar.helth = _body.helth;
             _collider._bullets = new List<DrawScripts.AnimSprite>();
-            _bulletsMotor = new Motors.BulletMovement(Game,_draw,_collider);
+            _bulletsMotor = new Motors.BulletMovement(Game);
             Game.Components.Add(_bulletsMotor);
             base.Initialize();
         }
@@ -72,7 +72,6 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         public override void Update(GameTime gameTime)
         {
             // TODO: Add your update code here
-            
             Movement(gameTime);
             Crosshair();
             _helthBar.helth = _body.helth;
@@ -97,7 +96,35 @@ namespace Invasion_of_the_bunny_snatchers.Motors
 
         public void multyShot(MouseState _mouseState)
         {
-            //doomulty shot
+            for(int i = 0;i<2;i++)
+            {
+                Vector2 direction = _crossHair.position - _body.position;
+                float distance = direction.Length();
+                direction /= distance;
+                direction.Normalize();
+                double kot = Math.Atan2(_mouseState.Y - _body.position.Y, _mouseState.X - _body.position.X);
+                Vector2 position = _body.position;
+                switch (_body.currentAnim)
+                {
+                    case 0:
+                        position = new Vector2(position.X + 16 * 2, position.Y);
+                        break;
+
+                    case 1:
+                        position = new Vector2(position.X, position.Y - 5 * 2);
+                        break;
+
+                    case 2:
+                        position = new Vector2(position.X, position.Y + 10 * 2);
+                        break;
+
+                    case 3:
+                        position = new Vector2(position.X - 13 * 2, position.Y);
+                        break;
+                }
+                shootOneBullet(position, direction, (float)kot);
+            }
+           
         }
 
         public void shoot(MouseState _mouseState)
@@ -126,7 +153,11 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                     position = new Vector2(position.X - 13 * 2, position.Y);
                     break;
             }
+            shootOneBullet(position,direction,(float)kot);
+        }
 
+        public void shootOneBullet(Vector2 position, Vector2 direction, float kot)
+        {
             DrawScripts.AnimSprite bulet = new DrawScripts.AnimSprite(Game);
             bulet.texture = _bullet.texture;
             bulet.position = position;
@@ -137,11 +168,10 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             bulet.currentAnim = 0;
             bulet.slika = true;
             bulet.direction = direction;
-            bulet.rotation = (float)kot;
+            bulet.rotation = kot;
+            bulet.player = true;
             Game.Components.Add(bulet);
-            _bulletsMotor._bullets.Add(bulet);
             _draw._bullets.Add(bulet);
-            _collider._bullets.Add(bulet);
         }
 
         public void Crosshair ()

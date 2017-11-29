@@ -17,8 +17,7 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
     /// </summary>
     public class AnimSprite : Microsoft.Xna.Framework.DrawableGameComponent
     {
-
-        SpriteBatch _spriteBatch;
+        
         public AnimSprite(Game game)
             : base(game)
         {
@@ -47,11 +46,13 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
         //za bullet
         public Vector2 direction { get; set; }
         public float rotation { get; set; }
+        public Boolean player { get; set; }
 
         //za enemy
         public Boolean attack { get; set; }
         public int enemyType { get; set; }
         public SpriteEffects orientacija { get; set; }
+        public float lastFire { get; set; }
 
 
         #endregion

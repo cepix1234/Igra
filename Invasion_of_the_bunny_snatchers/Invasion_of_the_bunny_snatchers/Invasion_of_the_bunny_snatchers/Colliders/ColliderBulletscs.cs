@@ -20,14 +20,11 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
         public List<DrawScripts.AnimSprite> _bullets;
         public List<DrawScripts.AnimSprite> _enemys;
         public DrawScripts.DrawInOrder _draw;
-        Motors.BulletMovement motor;
-        public ColliderBulletscs(Game game, List<DrawScripts.AnimSprite> bullets, List<DrawScripts.AnimSprite> enemys, DrawScripts.DrawInOrder draw)
+        private DrawScripts.AnimSprite _powerup;
+        public ColliderBulletscs(Game game)
             : base(game)
         {
             // TODO: Construct any child components here
-            _bullets = bullets;
-            _enemys = enemys;
-            _draw = draw;
         }
 
         /// <summary>
@@ -37,7 +34,10 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-
+            _bullets = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._bullets;
+            _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
+            _draw = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0];
+            _powerup = Game.Components.OfType<DrawScripts.AnimSprite>().ToList()[9];
             base.Initialize();
         }
 
@@ -48,7 +48,8 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
         public override void Update(GameTime gameTime)
         {
             // TODO: Add your update code here
-
+            _bullets = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._bullets;
+            _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
             bullethitrabit();
             base.Update(gameTime);
         }       
@@ -56,19 +57,82 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
 
         private void bullethitrabit()
         {
-            motor = Game.Components.OfType<Motors.BulletMovement>().ToList()[0];//za pomoc pri ostalih skritptah lahko dobim component
+            int itiBullet = 0;
+            int itiEnemy = 0;
+            int anim = 0;
+            List<DrawScripts.AnimSprite> dodaniPowerupi = new List<DrawScripts.AnimSprite>();
+            List<int> zadetiEnemyi = new List<int>();
+            List<int> zadetiBulleti = new List<int>();
             foreach (DrawScripts.AnimSprite bullet in _bullets)
             {
-                foreach (DrawScripts.AnimSprite enemy in _enemys)
+                if (bullet.player)
                 {
-                    if (!enemy.powerup)
+                    itiEnemy = 0;
+                    foreach (DrawScripts.AnimSprite enemy in _enemys)
                     {
-                        if (enemy.position.X + 15 * enemy.scale.X >= bullet.position.X && enemy.position.Y + 15 * enemy.scale.Y >= bullet.position.Y && enemy.position.X - 15 * enemy.scale.X <= bullet.position.X && enemy.position.Y - 15 * enemy.scale.Y <= bullet.position.Y)
+                        if (!enemy.powerup)
                         {
-                            // kill enemy and bullet check if spawn power up
+                            if (enemy.position.X + 15 * enemy.scale.X >= bullet.position.X && enemy.position.Y + 15 * enemy.scale.Y >= bullet.position.Y && enemy.position.X - 15 * enemy.scale.X <= bullet.position.X && enemy.position.Y - 15 * enemy.scale.Y <= bullet.position.Y)
+                            {
+                                // kill enemy and bullet check if spawn power up
+                                zadetiEnemyi.Add(itiEnemy);
+                                zadetiBulleti.Add(itiBullet);
+                                Random rnd = new Random();
+                                int randZaDrop = rnd.Next(0, 101);
+                                if(randZaDrop <50)
+                                {
+                                    int randZaKateriDrop = rnd.Next(0, 101);
+                                    if(randZaKateriDrop >= 0 && randZaKateriDrop < 34)
+                                    {
+                                        anim = 0;
+                                    }
+                                    else if(randZaKateriDrop > 33 && randZaKateriDrop < 67)
+                                    {
+                                        anim = 1;
+                                    }else if(randZaKateriDrop > 66 && randZaKateriDrop <= 100)
+                                    {
+                                        anim = 2;
+                                    }
+
+                                    DrawScripts.AnimSprite _powerUps = new DrawScripts.AnimSprite(Game);
+                                    _powerUps.texture = _powerup.texture;
+                                    _powerUps.animations = new List<Rectangle>();
+                                    _powerUps.animations.Add(new Rectangle(0, 0, 27, 28)); //multy shot
+                                    _powerUps.animations.Add(new Rectangle(33, 0, 21, 28)); //speed shot
+                                    _powerUps.animations.Add(new Rectangle(60, 0, 23, 28)); //speeeeeeed boooooost
+                                    _powerUps.scale = new Vector2(2f, 2f);
+                                    _powerUps.center = Vector2.Zero;
+                                    _powerUps.position = enemy.position;
+                                    _powerUps.slika = true;
+                                    _powerUps.currentAnim = anim;
+                                    _powerUps.powerup = true;
+                                    dodaniPowerupi.Add(_powerUps);
+                                    Game.Components.Add(_powerUps);
+                                    break;
+                                }
+                            }
                         }
+                        itiEnemy++;
                     }
+                }else
+                {
+                    //Check if player is hit
                 }
+                itiBullet++;
+            }
+
+            //izbrisi vse zadeto iz tabel
+            foreach(int i in zadetiBulleti)
+            {
+                _bullets.RemoveAt(i);
+            }
+            foreach(int i in zadetiEnemyi)
+            {
+                _enemys.RemoveAt(i);
+            }
+            foreach(DrawScripts.AnimSprite i in dodaniPowerupi)
+            {
+                _enemys.Add(i);
             }
         }
     }

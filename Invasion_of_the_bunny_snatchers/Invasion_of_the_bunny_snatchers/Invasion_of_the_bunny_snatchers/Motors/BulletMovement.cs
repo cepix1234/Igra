@@ -19,12 +19,11 @@ namespace Invasion_of_the_bunny_snatchers.Motors
     {
         DrawScripts.DrawInOrder _draw;
         Colliders.ColliderBulletscs _bulletcollider;
-        public BulletMovement(Game game, DrawScripts.DrawInOrder draw, Colliders.ColliderBulletscs bulletsCol)
+        List<DrawScripts.AnimSprite> _bullets;
+        public BulletMovement(Game game)
             : base(game)
         {
             // TODO: Construct any child components here
-            _draw = draw;
-            _bulletcollider = bulletsCol;
         }
 
         /// <summary>
@@ -34,12 +33,11 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            _bullets = new List<DrawScripts.AnimSprite>();
+            _draw = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0];
+            _bulletcollider = Game.Components.OfType<Colliders.ColliderBulletscs>().ToList()[0];
+            _bullets = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._bullets;
             base.Initialize();
         }
-        #region Members
-        public List<DrawScripts.AnimSprite> _bullets;
-        #endregion
 
         /// <summary>
         /// Allows the game component to update itself.
@@ -47,6 +45,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
+            _bullets = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._bullets;
             int i = 0;
             List<int> iji = new List<int>();
             foreach(DrawScripts.AnimSprite bullet in _bullets)
@@ -73,8 +72,6 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             foreach (int ij in iji)
             {
                 _bullets.RemoveAt(ij);
-                _draw._bullets.RemoveAt(ij);
-                _bulletcollider._bullets.RemoveAt(ij);
             }
             base.Update(gameTime);
         }

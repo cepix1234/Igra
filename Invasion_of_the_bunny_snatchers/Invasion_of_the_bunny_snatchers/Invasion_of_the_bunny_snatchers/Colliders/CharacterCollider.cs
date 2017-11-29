@@ -20,13 +20,11 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
         DrawScripts.AnimSprite _aspCharacter;
         DrawScripts.AnimSprite _aspLegs;
         public List<DrawScripts.AnimSprite> _enemys;
-        public CharacterCollider(Game game, DrawScripts.AnimSprite cahraceter, DrawScripts.AnimSprite legs, List<DrawScripts.AnimSprite> enemys)
+        public CharacterCollider(Game game)
             : base(game)
         {
             // TODO: Construct any child components here
-            _aspCharacter = cahraceter;
-            _aspLegs = legs;
-            _enemys = enemys;
+            
         }
 
         /// <summary>
@@ -36,7 +34,9 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-
+            _aspCharacter = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._player[0];
+            _aspLegs = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._player[1];
+            _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
             base.Initialize();
         }
 
@@ -47,6 +47,7 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
         public override void Update(GameTime gameTime)
         {
             // TODO: Add your update code here
+            _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
             BorderCollision();
             colideWithPowerup();
             colideWithEnemy();
@@ -59,23 +60,11 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
             {
                 if (!enemy.powerup)
                 {
-                    if (_aspCharacter.position.X + (13 * _aspCharacter.scale.X) >= enemy.position.X-22*enemy.scale.X)
+                    if (enemy.attack)
                     {
-                        if (_aspCharacter.position.X - (11 * _aspCharacter.scale.X) <= enemy.position.X+ 22*enemy.scale.X)
-                        {
-                            if (_aspCharacter.position.Y - (20 * _aspCharacter.scale.Y) <= enemy.position.Y-22*enemy.scale.Y)
-                            {
-                                if (_aspLegs.position.Y + (20 * _aspLegs.scale.Y) >= enemy.position.Y+22*enemy.scale.Y)
-                                {
-                                    if (enemy.attack)
-                                    {
-                                        //collide with enemy move back and take X damage
-                                        _aspCharacter.helth -= 10;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                        //collide with enemy move back and take X damage
+                        _aspCharacter.helth -= 10;
+                    }         
                 }
             }
         }
@@ -94,7 +83,23 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
                             {
                                 if (_aspLegs.position.Y + (20 * _aspLegs.scale.Y) >= enemy.position.Y+28*enemy.scale.Y)
                                 {
-                                    //update character based on pick up
+                                    switch(enemy.currentAnim)
+                                    {
+                                        case 0:
+                                            // pick up multy shot
+
+                                            break;
+
+                                        case 1:
+                                            //pick up shoot speed
+
+                                            break;
+
+                                        case 2:
+                                            //pick up move seped
+
+                                            break;
+                                    }
                                 }
                             }
                         }

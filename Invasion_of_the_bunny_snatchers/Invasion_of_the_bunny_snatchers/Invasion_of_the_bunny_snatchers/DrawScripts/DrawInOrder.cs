@@ -43,8 +43,8 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
         private List<DrawScripts.AnimSprite> _background;
         public List<DrawScripts.AnimSprite> _enemys;
         public List<DrawScripts.AnimSprite> _bullets;
-        private List<DrawScripts.AnimSprite> _player;
-        private List<DrawScripts.AnimSprite> _UI;
+        public List<DrawScripts.AnimSprite> _player;
+        public List<DrawScripts.AnimSprite> _UI;
         #endregion
 
         public override void Draw(GameTime gameTime)

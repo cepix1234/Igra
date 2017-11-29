@@ -143,6 +143,7 @@ namespace Invasion_of_the_bunny_snatchers
             _aspEnemy.slika = true;
             _aspEnemy.powerup = false;
             _aspEnemy.attack = false;
+            _aspEnemy.shootSpeed = 6f;
             _aspEnemy.enemyType = 0;
             _aspEnemy.orientacija = SpriteEffects.None;
             Components.Add(_aspEnemy);
@@ -159,6 +160,7 @@ namespace Invasion_of_the_bunny_snatchers
             _aspEnemy2.slika = true;
             _aspEnemy2.powerup = false;
             _aspEnemy2.attack = false;
+            _aspEnemy2.shootSpeed = 6f;
             _aspEnemy2.enemyType = 1;
             _aspEnemy2.orientacija = SpriteEffects.FlipHorizontally;
             Components.Add(_aspEnemy2);
@@ -168,20 +170,6 @@ namespace Invasion_of_the_bunny_snatchers
             //------------------------------------------------------------------------------dodajanje powe upov
             DrawScripts.AnimSprite _powerUps = new DrawScripts.AnimSprite(this);
             _powerUps.texture = Content.Load<Texture2D>("Assets\\Character\\PowerUps");
-            _powerUps.animations = new List<Rectangle>();
-            _powerUps.animations.Add(new Rectangle(0, 0, 27, 28)); //multy shot
-            _powerUps.animations.Add(new Rectangle(33, 0, 21, 28)); //speed shot
-            _powerUps.animations.Add(new Rectangle(60, 0, 23, 28)); //speeeeeeed boooooost
-            _powerUps.scale = new Vector2(2f, 2f);
-            _powerUps.center = Vector2.Zero;
-            Random rd = new Random();
-            int x = rd.Next((int)graphics.GraphicsDevice.Viewport.Width);
-            int y = rd.Next((int)graphics.GraphicsDevice.Viewport.Height);
-            _powerUps.position = new Vector2(x, y);
-            _powerUps.slika = true;
-            int anim = rd.Next(3);
-            _powerUps.currentAnim = anim;
-            _powerUps.powerup = true;
             Components.Add(_powerUps);
 
             
@@ -194,11 +182,6 @@ namespace Invasion_of_the_bunny_snatchers
             List<DrawScripts.AnimSprite> _enemys = new List<DrawScripts.AnimSprite>();
             _enemys.Add(_aspEnemy);
             _enemys.Add(_aspEnemy2);
-            _enemys.Add(_powerUps);
-
-            
-
-            
             
 
             List<DrawScripts.AnimSprite> _player = new List<DrawScripts.AnimSprite>();
@@ -213,19 +196,22 @@ namespace Invasion_of_the_bunny_snatchers
 
             DrawScripts.DrawInOrder _draw = new DrawScripts.DrawInOrder(this,_background,_enemys,_player,_UI);
             Components.Add(_draw);
-
-            Colliders.ColliderBulletscs collider = new Colliders.ColliderBulletscs(this, _enemys, _enemys, _draw);
+            //--------------------------------------------------------------------------------------------------- konec dodajanja elementov v izrisevanje
+            
+            //------------------------------------------------------------------------------------motor za metke
+            Colliders.ColliderBulletscs collider = new Colliders.ColliderBulletscs(this);
             Components.Add(collider);
 
-            Motors.EnemyMovement _enemyMove = new Motors.EnemyMovement(this, _enemys, collider, _aspCharacter);
+            //-------------------------------------------------------------------- motro za enemije
+            Motors.EnemyMovement _enemyMove = new Motors.EnemyMovement(this);
             Components.Add(_enemyMove);
 
             //----------------------------------------------------------------------------------------------------------------------------------dodajanje motorja za igralca
-            Motors.CharacterMovement _charMove = new Motors.CharacterMovement(this, _aspCharacter, _aspCharacterLegs, _helthBar, _spCrossHair, _spBullet, _draw, collider);
+            Motors.CharacterMovement _charMove = new Motors.CharacterMovement(this);
             Components.Add(_charMove);
 
             //----------------------------------------------------------------------------dodajanje collider za igralca
-            Colliders.CharacterCollider _charCollider = new Colliders.CharacterCollider(this,_aspCharacter,_aspCharacterLegs, _enemys);
+            Colliders.CharacterCollider _charCollider = new Colliders.CharacterCollider(this);
             Components.Add(_charCollider);
 
             base.Initialize();
