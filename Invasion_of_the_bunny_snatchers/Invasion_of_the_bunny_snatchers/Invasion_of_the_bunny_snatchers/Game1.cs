@@ -64,10 +64,10 @@ namespace Invasion_of_the_bunny_snatchers
             _aspCharacter.center = Vector2.Zero;
             _aspCharacter.position = new Vector2((float)graphics.GraphicsDevice.Viewport.Width / 2, (float)graphics.GraphicsDevice.Viewport.Height / 2);
             _aspCharacter.slika = true;
-            _aspCharacter.speed = 100;
+            _aspCharacter.speed = 200;
             _aspCharacter.shootSpeed = 1f;
             _aspCharacter.helth = 100;
-            _aspCharacter.multipleBoolets = false;
+            _aspCharacter.multipleBoolets = true;
             Components.Add(_aspCharacter);
 
             //---------------------------------------------------------------------------dodajanje nog glavnemu igralcu

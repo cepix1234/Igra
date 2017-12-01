@@ -62,7 +62,7 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
             int anim = 0;
             List<DrawScripts.AnimSprite> dodaniPowerupi = new List<DrawScripts.AnimSprite>();
             List<int> zadetiEnemyi = new List<int>();
-            List<int> zadetiBulleti = new List<int>();
+            Boolean zadetek = false;
             foreach (DrawScripts.AnimSprite bullet in _bullets)
             {
                 if (bullet.player)
@@ -76,7 +76,6 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
                             {
                                 // kill enemy and bullet check if spawn power up
                                 zadetiEnemyi.Add(itiEnemy);
-                                zadetiBulleti.Add(itiBullet);
                                 Random rnd = new Random();
                                 int randZaDrop = rnd.Next(0, 101);
                                 if(randZaDrop <50)
@@ -108,11 +107,16 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
                                     _powerUps.powerup = true;
                                     dodaniPowerupi.Add(_powerUps);
                                     Game.Components.Add(_powerUps);
-                                    break;
                                 }
+                                zadetek = true;
+                                break;
                             }
                         }
                         itiEnemy++;
+                    }
+                    if (zadetek)
+                    {
+                        break;
                     }
                 }else
                 {
@@ -122,9 +126,9 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
             }
 
             //izbrisi vse zadeto iz tabel
-            foreach(int i in zadetiBulleti)
+            if(zadetek)
             {
-                _bullets.RemoveAt(i);
+                _bullets.RemoveAt(itiBullet);
             }
             foreach(int i in zadetiEnemyi)
             {

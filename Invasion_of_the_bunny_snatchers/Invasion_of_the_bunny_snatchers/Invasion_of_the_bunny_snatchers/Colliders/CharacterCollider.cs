@@ -50,11 +50,11 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
             _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
             BorderCollision();
             colideWithPowerup();
-            colideWithEnemy();
+            colideWithEnemy(gameTime);
             base.Update(gameTime);
         }
 
-        private void colideWithEnemy()
+        private void colideWithEnemy(GameTime gameTime)
         {
             foreach (DrawScripts.AnimSprite enemy in _enemys)
             {
@@ -63,7 +63,10 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
                     if (enemy.attack)
                     {
                         //collide with enemy move back and take X damage
+                        enemy.attack = false;
                         _aspCharacter.helth -= 10;
+                        Vector2 direction = enemy.position - _aspCharacter.position;
+                        _aspCharacter.position -= direction *10*(float)gameTime.ElapsedGameTime.TotalSeconds;
                     }         
                 }
             }
@@ -87,17 +90,23 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
                                     {
                                         case 0:
                                             // pick up multy shot
-
+                                            _aspCharacter.multipleBoolets = true;
+                                            _aspCharacter.speed = 100;
+                                            _aspCharacter.shootSpeed = 1f;
                                             break;
 
                                         case 1:
                                             //pick up shoot speed
-
+                                            _aspCharacter.multipleBoolets = false;
+                                            _aspCharacter.speed = 100;
+                                            _aspCharacter.shootSpeed = 0.5f;
                                             break;
 
                                         case 2:
                                             //pick up move seped
-
+                                            _aspCharacter.multipleBoolets = false;
+                                            _aspCharacter.speed = 200;
+                                            _aspCharacter.shootSpeed = 1f;
                                             break;
                                     }
                                 }

@@ -96,32 +96,39 @@ namespace Invasion_of_the_bunny_snatchers.Motors
 
         public void multyShot(MouseState _mouseState)
         {
-            for(int i = 0;i<2;i++)
+            for(int i = -1;i<2;i++)
             {
-                Vector2 direction = _crossHair.position - _body.position;
-                float distance = direction.Length();
-                direction /= distance;
-                direction.Normalize();
-                double kot = Math.Atan2(_mouseState.Y - _body.position.Y, _mouseState.X - _body.position.X);
                 Vector2 position = _body.position;
+                Vector2 cilj = _crossHair.position;
                 switch (_body.currentAnim)
                 {
                     case 0:
                         position = new Vector2(position.X + 16 * 2, position.Y);
+                        cilj = new Vector2(_crossHair.position.X, _crossHair.position.Y + (50 * i));
                         break;
 
                     case 1:
                         position = new Vector2(position.X, position.Y - 5 * 2);
+                        cilj = new Vector2(_crossHair.position.X + (50 * i), _crossHair.position.Y);
                         break;
 
                     case 2:
                         position = new Vector2(position.X, position.Y + 10 * 2);
+                        cilj = new Vector2(_crossHair.position.X + (50 * i), _crossHair.position.Y);
                         break;
 
                     case 3:
                         position = new Vector2(position.X - 13 * 2, position.Y);
+                        cilj = new Vector2(_crossHair.position.X, _crossHair.position.Y + (50 * i));
                         break;
                 }
+
+                Vector2 direction = cilj - _body.position;
+                float distance = direction.Length();
+                direction /= distance;
+                direction.Normalize();
+                double kot = Math.Atan2(cilj.Y - _body.position.Y, cilj.X - _body.position.X);
+                
                 shootOneBullet(position, direction, (float)kot);
             }
            
