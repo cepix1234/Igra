@@ -17,9 +17,10 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
     /// </summary>
     public class CharacterCollider : Microsoft.Xna.Framework.GameComponent
     {
-        DrawScripts.AnimSprite _aspCharacter;
-        DrawScripts.AnimSprite _aspLegs;
-        public List<DrawScripts.AnimSprite> _enemys;
+        Player.Player _aspCharacter;
+        Player.Player _aspLegs;
+        public List<Enemy.enemy> _enemys;
+        public List<DrawScripts.AnimSprite> _powerUps;
         public CharacterCollider(Game game)
             : base(game)
         {
@@ -34,9 +35,10 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            _aspCharacter = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._player[0];
-            _aspLegs = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._player[1];
+            _aspCharacter = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._player;
+            _aspLegs = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._player;
             _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
+            _powerUps = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._powerUps;
             base.Initialize();
         }
 
@@ -48,6 +50,7 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
         {
             // TODO: Add your update code here
             _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
+            _powerUps = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._powerUps;
             BorderCollision();
             colideWithPowerup();
             colideWithEnemy(gameTime);
@@ -56,85 +59,88 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
 
         private void colideWithEnemy(GameTime gameTime)
         {
-            foreach (DrawScripts.AnimSprite enemy in _enemys)
+            foreach (Enemy.enemy enemy in _enemys)
             {
-                if (!enemy.powerup)
+                if (enemy.attack)
                 {
-                    if (enemy.attack)
-                    {
-                        //collide with enemy move back and take X damage
-                        enemy.attack = false;
-                        _aspCharacter.helth -= 10;
-                        Vector2 direction = enemy.position - _aspCharacter.position;
-                        _aspCharacter.position -= direction *10*(float)gameTime.ElapsedGameTime.TotalSeconds;
-                    }         
-                }
+                    //collide with enemy move back and take X damage
+                    enemy.attack = false;
+                    _aspCharacter.helth -= 10;
+                    Vector2 direction = enemy.position - _aspCharacter.position;
+                    _aspCharacter.position -= direction *10*(float)gameTime.ElapsedGameTime.TotalSeconds;
+                } 
             }
         }
 
         private void colideWithPowerup()
         {
-            foreach(DrawScripts.AnimSprite enemy in _enemys)
+            int i = 0;
+            bool pickedUp = false;
+            foreach (DrawScripts.AnimSprite powerUp in _powerUps)
             {
-                if(enemy.powerup)
+                if (_aspCharacter.position.X + (13 * _aspCharacter.body.scale.X) >= powerUp.position.X)
                 {
-                    if (_aspCharacter.position.X + (13 * _aspCharacter.scale.X) >= enemy.position.X)
+                    if (_aspCharacter.position.X - (11 * _aspCharacter.body.scale.X) <= powerUp.position.X + 27 * powerUp.scale.X)
                     {
-                        if (_aspCharacter.position.X - (11 * _aspCharacter.scale.X) <= enemy.position.X+27*enemy.scale.X)
+                        if (_aspCharacter.position.Y - (20 * _aspCharacter.body.scale.Y) <= powerUp.position.Y)
                         {
-                           if(_aspCharacter.position.Y - (20 * _aspCharacter.scale.Y) <= enemy.position.Y)
+                            if (_aspLegs.position.Y + (20 * _aspLegs.legs.scale.Y) >= powerUp.position.Y + 28 * powerUp.scale.Y)
                             {
-                                if (_aspLegs.position.Y + (20 * _aspLegs.scale.Y) >= enemy.position.Y+28*enemy.scale.Y)
+                                pickedUp = true;
+                                switch (powerUp.currentAnim)
                                 {
-                                    switch(enemy.currentAnim)
-                                    {
-                                        case 0:
-                                            // pick up multy shot
-                                            _aspCharacter.multipleBoolets = true;
-                                            _aspCharacter.speed = 100;
-                                            _aspCharacter.shootSpeed = 1f;
-                                            break;
+                                    case 0:
+                                        // pick up multy shot
+                                        _aspCharacter.multipleBoolets = true;
+                                        _aspCharacter.speed = 100;
+                                        _aspCharacter.shootSpeed = 1f;
+                                        break;
 
-                                        case 1:
-                                            //pick up shoot speed
-                                            _aspCharacter.multipleBoolets = false;
-                                            _aspCharacter.speed = 100;
-                                            _aspCharacter.shootSpeed = 0.5f;
-                                            break;
+                                    case 1:
+                                        //pick up shoot speed
+                                        _aspCharacter.multipleBoolets = false;
+                                        _aspCharacter.speed = 100;
+                                        _aspCharacter.shootSpeed = 0.5f;
+                                        break;
 
-                                        case 2:
-                                            //pick up move seped
-                                            _aspCharacter.multipleBoolets = false;
-                                            _aspCharacter.speed = 200;
-                                            _aspCharacter.shootSpeed = 1f;
-                                            break;
-                                    }
+                                    case 2:
+                                        //pick up move seped
+                                        _aspCharacter.multipleBoolets = false;
+                                        _aspCharacter.speed = 200;
+                                        _aspCharacter.shootSpeed = 1f;
+                                        break;
                                 }
+                                break;
                             }
                         }
                     }
                 }
+                i++;
+            }
+            if(pickedUp)
+            {
+                _powerUps.RemoveAt(i);
             }
         }
 
 
         private void BorderCollision ()
         {
-            if(_aspCharacter.position.X+(13*_aspCharacter.scale.X) >= Game.GraphicsDevice.Viewport.Width)
+            if(_aspCharacter.position.X+(13*_aspCharacter.body.scale.X) >= Game.GraphicsDevice.Viewport.Width)
             {
-                _aspCharacter.position =new Vector2((int)Game.GraphicsDevice.Viewport.Width - (13 * _aspCharacter.scale.X), _aspCharacter.position.Y);
+                _aspCharacter.position =new Vector2((int)Game.GraphicsDevice.Viewport.Width - (13 * _aspCharacter.body.scale.X), _aspCharacter.position.Y);
             }
-            if(_aspCharacter.position.X- (11 * _aspCharacter.scale.X) <= 0)
+            if(_aspCharacter.position.X- (11 * _aspCharacter.body.scale.X) <= 0)
             {
-                _aspCharacter.position = new Vector2((11 * _aspCharacter.scale.X), _aspCharacter.position.Y);
+                _aspCharacter.position = new Vector2((11 * _aspCharacter.body.scale.X), _aspCharacter.position.Y);
             }
-            if (_aspCharacter.position.Y - (20 * _aspCharacter.scale.Y) <= 0)
+            if (_aspCharacter.position.Y - (20 * _aspCharacter.body.scale.Y) <= 0)
             {
-                _aspCharacter.position = new Vector2(_aspCharacter.position.X, (20 * _aspCharacter.scale.Y));
+                _aspCharacter.position = new Vector2(_aspCharacter.position.X, (20 * _aspCharacter.body.scale.Y));
             }
-            if (_aspLegs.position.Y + (20 * _aspLegs.scale.Y) >= Game.GraphicsDevice.Viewport.Height)
+            if (_aspLegs.position.Y + (20 * _aspLegs.legs.scale.Y) >= Game.GraphicsDevice.Viewport.Height)
             {
-                _aspCharacter.position = new Vector2(_aspCharacter.position.X,(int)Game.GraphicsDevice.Viewport.Height - (_aspLegs.texture.Height-22*_aspLegs.scale.Y));
+                _aspCharacter.position = new Vector2(_aspCharacter.position.X,(int)Game.GraphicsDevice.Viewport.Height - (_aspLegs.legs.texture.Height-22*_aspLegs.legs.scale.Y));
             }
         }
     }

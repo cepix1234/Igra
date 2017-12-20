@@ -17,11 +17,10 @@ namespace Invasion_of_the_bunny_snatchers.Motors
     /// </summary>
     public class CharacterMovement : Microsoft.Xna.Framework.GameComponent
     {
-        DrawScripts.AnimSprite _body;
-        DrawScripts.AnimSprite _legs;
+        Player.Player _player;
         DrawScripts.AnimSprite _helthBar;
         DrawScripts.AnimSprite _crossHair;
-        DrawScripts.AnimSprite _bullet;
+        Bullet.Bullet _bullet;
         DrawScripts.DrawInOrder _draw;
         Motors.BulletMovement _bulletsMotor;
         Colliders.ColliderBulletscs _collider;
@@ -34,11 +33,10 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             : base(game)
         {
             // TODO: Construct any child components here
-            _body = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._player[0];
-            _legs = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._player[1];
+            _player = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._player;
             _helthBar = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._UI[1];
             _crossHair = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._UI[0];
-            _bullet = Game.Components.OfType<DrawScripts.AnimSprite>().ToList()[6];
+            _bullet = Game.Components.OfType<Bullet.Bullet>().ToList()[0];
             _draw = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0];
             _collider = Game.Components.OfType<Colliders.ColliderBulletscs>().ToList()[0];
         }
@@ -50,16 +48,14 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         public override void Initialize()
         {
             // TODO: Add your initialization code here
-            _body.currentAnim = 0;
-            _legs.currentAnim = 0;
+            _player.body.currentAnim = 0;
+            _player.legs.currentAnim = 0;
 
             //menjava strni izracunaj pozicijo nog
-            int x = _body.animations[_body.currentAnim].Width / 2;
-            x = x - _legs.animations[_body.currentAnim].Width / 2;
-            _legs.position = _body.position + new Vector2(x * _legs.scale.X, (_body.animations[_body.currentAnim].Bottom - 1) * _legs.scale.Y);
+            int x = _player.body.animations[_player.body.currentAnim].Width / 2;
+            x = x - _player.legs.animations[_player.body.currentAnim].Width / 2;
             keyState = Keyboard.GetState();
-            _helthBar.helth = _body.helth;
-            _collider._bullets = new List<DrawScripts.AnimSprite>();
+            _collider._bullets = new List<Bullet.Bullet>();
             _bulletsMotor = new Motors.BulletMovement(Game);
             Game.Components.Add(_bulletsMotor);
             base.Initialize();
@@ -74,13 +70,12 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             // TODO: Add your update code here
             Movement(gameTime);
             Crosshair();
-            _helthBar.helth = _body.helth;
             //shoot 60rpm
             lastFire += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (lastFire> _body.shootSpeed)
+            if (lastFire> _player.shootSpeed)
             {
                 MouseState _mouseState = Mouse.GetState();
-                if (_body.multipleBoolets)
+                if (_player.multipleBoolets)
                 {
                     multyShot(_mouseState);       
                 }
@@ -98,9 +93,9 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         {
             for(int i = -1;i<2;i++)
             {
-                Vector2 position = _body.position;
+                Vector2 position = _player.position;
                 Vector2 cilj = _crossHair.position;
-                switch (_body.currentAnim)
+                switch (_player.body.currentAnim)
                 {
                     case 0:
                         position = new Vector2(position.X + 16 * 2, position.Y);
@@ -123,26 +118,39 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                         break;
                 }
 
-                Vector2 direction = cilj - _body.position;
+                Vector2 direction = cilj - _player.position;
                 float distance = direction.Length();
                 direction /= distance;
                 direction.Normalize();
-                double kot = Math.Atan2(cilj.Y - _body.position.Y, cilj.X - _body.position.X);
+                double kot = Math.Atan2(cilj.Y - _player.position.Y, cilj.X - _player.position.X);
                 
                 shootOneBullet(position, direction, (float)kot);
             }
-           
+            float volume = 0.4f;
+            float pitch = 0.0f;
+            float pan = 0.0f;
+            Random rnd = new Random();
+            int rand = rnd.Next(0, 2);
+            if (rand == 0)
+            {
+                _player.shoot1.Play(volume, pitch, pan);
+            }
+            else
+            {
+                _player.shoot2.Play(volume, pitch, pan);
+            }
+
         }
 
         public void shoot(MouseState _mouseState)
         {
-            Vector2 direction = _crossHair.position- _body.position;
+            Vector2 direction = _crossHair.position- _player.position;
             float distance = direction.Length();
             direction /= distance;
             direction.Normalize();
-            double kot = Math.Atan2(_mouseState.Y - _body.position.Y, _mouseState.X - _body.position.X);
-            Vector2 position = _body.position;
-            switch(_body.currentAnim)
+            double kot = Math.Atan2(_mouseState.Y - _player.position.Y, _mouseState.X - _player.position.X);
+            Vector2 position = _player.position;
+            switch(_player.body.currentAnim)
             {
                 case 0:
                     position = new Vector2(position.X+16*2, position.Y);
@@ -161,19 +169,26 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                     break;
             }
             shootOneBullet(position,direction,(float)kot);
+            float volume = 0.4f;
+            float pitch = 0.0f;
+            float pan = 0.0f;
+            Random rnd = new Random();
+            int rand = rnd.Next(0, 2);
+            if(rand == 0)
+            {
+                _player.shoot1.Play(volume, pitch, pan);
+            }
+            else
+            {
+                _player.shoot2.Play(volume, pitch, pan);
+            }
         }
 
         public void shootOneBullet(Vector2 position, Vector2 direction, float kot)
         {
-            DrawScripts.AnimSprite bulet = new DrawScripts.AnimSprite(Game);
-            bulet.texture = _bullet.texture;
+            Bullet.Bullet bulet = new Bullet.Bullet(Game);
+            bulet.body = _bullet.body;
             bulet.position = position;
-            bulet.animations = new List<Rectangle>();
-            bulet.animations.Add(new Rectangle(0, 0, bulet.texture.Width, bulet.texture.Height));
-            bulet.scale = new Vector2(1, 1);
-            bulet.center = new Vector2(bulet.texture.Width / 2, bulet.texture.Height / 2);
-            bulet.currentAnim = 0;
-            bulet.slika = true;
             bulet.direction = direction;
             bulet.rotation = kot;
             bulet.player = true;
@@ -186,24 +201,24 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             MouseState _mouseState = Mouse.GetState();
             _crossHair.position = new Vector2(_mouseState.X, _mouseState.Y);
 
-            double kot = Math.Atan2(_mouseState.Y - _body.position.Y, _mouseState.X - _body.position.X);
+            double kot = Math.Atan2(_mouseState.Y - _player.position.Y, _mouseState.X - _player.position.X);
             if (kot <= -0.5 && kot >= -2.5)
             {
-                _body.currentAnim = 1;
+                _player.body.currentAnim = 1;
             }
             else if (kot <= -2.5 || kot >= 2.5)
             {
-                _body.currentAnim = 3;
+                _player.body.currentAnim = 3;
             }
             else if (kot <= 2.5 && kot >= 0.5)
             {
-                _body.currentAnim = 2;
+                _player.body.currentAnim = 2;
             }
             else
             {
-                _body.currentAnim = 0;
+                _player.body.currentAnim = 0;
             }
-            _body.center = new Vector2(_body.animations[_body.currentAnim].Width / 2, _body.animations[_body.currentAnim].Height / 2);
+            _player.body.center = new Vector2(_player.body.animations[_player.body.currentAnim].Width / 2, _player.body.animations[_player.body.currentAnim].Height / 2);
         }
 
         public void Movement (GameTime gameTime)
@@ -224,16 +239,16 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                 switch (anim)
                 {
                     case 0:
-                        _legs.currentAnim = 5;
+                        _player.legs.currentAnim = 5;
                         break;
                     case 1:
-                        _legs.currentAnim = 1;
+                        _player.legs.currentAnim = 1;
                         break;
                     case 2:
-                        _legs.currentAnim = 5;
+                        _player.legs.currentAnim = 5;
                         break;
                     case 3:
-                        _legs.currentAnim = 2;
+                        _player.legs.currentAnim = 2;
                         break;
                 }
 
@@ -250,10 +265,10 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                 switch (anim)
                 {
                     case 0:
-                        _legs.currentAnim = 3;
+                        _player.legs.currentAnim = 3;
                         break;
                     case 1:
-                        _legs.currentAnim = 4;
+                        _player.legs.currentAnim = 4;
                         break;
                 }
             }
@@ -269,16 +284,16 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                 switch (anim)
                 {
                     case 0:
-                        _legs.currentAnim = 5;
+                        _player.legs.currentAnim = 5;
                         break;
                     case 1:
-                        _legs.currentAnim = 1;
+                        _player.legs.currentAnim = 1;
                         break;
                     case 2:
-                        _legs.currentAnim = 5;
+                        _player.legs.currentAnim = 5;
                         break;
                     case 3:
-                        _legs.currentAnim = 2;
+                        _player.legs.currentAnim = 2;
                         break;
                 }
             }
@@ -294,25 +309,25 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                 switch (anim)
                 {
                     case 0:
-                        _legs.currentAnim = 0;
+                        _player.legs.currentAnim = 0;
                         break;
                     case 1:
-                        _legs.currentAnim = 4;
+                        _player.legs.currentAnim = 4;
                         break;
                 }
             }
             if (oldState == 5 && !pressed)
             {
-                _legs.currentAnim = 5;
+                _player.legs.currentAnim = 5;
             }
             else if (oldState == 4 && !pressed)
             {
-                _legs.currentAnim = 4;
+                _player.legs.currentAnim = 4;
             }
 
-            _body.position += direction * _body.speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            _legs.center = new Vector2(_legs.animations[_legs.currentAnim].Width / 2, 0);
-            _legs.position = new Vector2(_body.position.X, _body.position.Y+_body.animations[_body.currentAnim].Height);
+            _player.position += direction * _player.speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            _player.legs.center = new Vector2(_player.legs.animations[_player.legs.currentAnim].Width / 2, 0);
+            _player.legsOffset = new Vector2(_player.body.position.X, _player.body.position.Y + _player.body.animations[_player.body.currentAnim].Height);
         }
     }
 }

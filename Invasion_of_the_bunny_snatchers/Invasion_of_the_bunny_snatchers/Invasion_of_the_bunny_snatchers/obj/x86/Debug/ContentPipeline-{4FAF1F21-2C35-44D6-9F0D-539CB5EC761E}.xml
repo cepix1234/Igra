@@ -73,6 +73,42 @@
       <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Font\Font.xnb</Output>
       <Time>2017-10-18T16:23:38.1352239+02:00</Time>
     </Item>
+    <Item>
+      <Source>Assets\Sounds\BunnyDying.wav</Source>
+      <Name>Assets\Sounds\BunnyDying</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Sounds\BunnyDying.xnb</Output>
+      <Time>2017-12-19T18:06:41.6213406+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\Sounds\BunnySound.wav</Source>
+      <Name>Assets\Sounds\BunnySound</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Sounds\BunnySound.xnb</Output>
+      <Time>2017-12-19T18:06:41.6373497+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\Sounds\GunSound1.wav</Source>
+      <Name>Assets\Sounds\GunSound1</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Sounds\GunSound1.xnb</Output>
+      <Time>2017-12-19T18:06:41.6448404+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\Sounds\GunSound2.wav</Source>
+      <Name>Assets\Sounds\GunSound2</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Sounds\GunSound2.xnb</Output>
+      <Time>2017-12-19T18:06:41.651341+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{4FAF1F21-2C35-44D6-9F0D-539CB5EC761E}</ContentProjectGUID>

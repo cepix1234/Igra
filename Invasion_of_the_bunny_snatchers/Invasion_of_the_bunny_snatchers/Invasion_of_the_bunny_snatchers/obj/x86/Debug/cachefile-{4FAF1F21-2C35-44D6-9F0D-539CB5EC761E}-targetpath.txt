@@ -6,3 +6,7 @@ Content\Assets\Controls\Jostick.xnb
 Content\Assets\Character\Character.xnb
 Content\Assets\Enemy\Enemy.xnb
 Content\Assets\Font\Font.xnb
+Content\Assets\Sounds\BunnyDying.xnb
+Content\Assets\Sounds\BunnySound.xnb
+Content\Assets\Sounds\GunSound1.xnb
+Content\Assets\Sounds\GunSound2.xnb

@@ -62,12 +62,6 @@ namespace Invasion_of_the_bunny_snatchers
             _aspCharacter.animations.Add(new Rectangle(88, 0, 31, 43)); //levo
             _aspCharacter.scale = new Vector2(2f, 2f);
             _aspCharacter.center = Vector2.Zero;
-            _aspCharacter.position = new Vector2((float)graphics.GraphicsDevice.Viewport.Width / 2, (float)graphics.GraphicsDevice.Viewport.Height / 2);
-            _aspCharacter.slika = true;
-            _aspCharacter.speed = 200;
-            _aspCharacter.shootSpeed = 1f;
-            _aspCharacter.helth = 100;
-            _aspCharacter.multipleBoolets = true;
             Components.Add(_aspCharacter);
 
             //---------------------------------------------------------------------------dodajanje nog glavnemu igralcu
@@ -81,13 +75,23 @@ namespace Invasion_of_the_bunny_snatchers
             _aspCharacterLegs.animations.Add(new Rectangle(0, 86, 31, 28)); //stoji desno
             _aspCharacterLegs.animations.Add(new Rectangle(32, 86, 31, 28)); // stoji gor
             _aspCharacterLegs.scale = new Vector2(2f, 2f);
-            _aspCharacterLegs.position = _aspCharacter.position + new Vector2(0, 88);
             _aspCharacterLegs.center = Vector2.Zero;
-            _aspCharacterLegs.slika = true;
             Components.Add(_aspCharacterLegs);
 
+            Player.Player _player = new Player.Player(this);
+            _player.body = _aspCharacter;
+            _player.legs = _aspCharacterLegs;
+            _player.position = new Vector2((float)graphics.GraphicsDevice.Viewport.Width / 2, (float)graphics.GraphicsDevice.Viewport.Height / 2);
+            _player.speed = 100;
+            _player.shootSpeed = 1f;
+            _player.multipleBoolets = false;
+            _player.helth = 100;
+            _player.shoot1 = Content.Load<SoundEffect>("Assets\\Sounds\\GunSound1");
+            _player.shoot2 = Content.Load<SoundEffect>("Assets\\Sounds\\GunSound2");
+            Components.Add(_player);
 
-           
+
+
             //-------------------------------------------------------------------dodajanje helth bara
             DrawScripts.AnimSprite _helthBar = new DrawScripts.AnimSprite(this);
             _helthBar.font = Content.Load<SpriteFont>("Assets\\Font\\Font"); ;
@@ -120,14 +124,17 @@ namespace Invasion_of_the_bunny_snatchers
             //----------------------------------------------------------------------------dodajanje metka
             DrawScripts.AnimSprite _spBullet = new DrawScripts.AnimSprite(this);
             _spBullet.texture = Content.Load<Texture2D>("Assets\\Character\\Bullet");
-            _spBullet.position = Vector2.Zero;
             _spBullet.animations = new List<Rectangle>();
             _spBullet.animations.Add(new Rectangle(0, 0, _spBullet.texture.Width, _spBullet.texture.Height));
             _spBullet.scale = new Vector2(1, 1);
             _spBullet.center = new Vector2(_spBullet.texture.Width / 2, _spBullet.texture.Height / 2);
             _spBullet.currentAnim = 0;
-            _spBullet.slika = true;
             Components.Add(_spBullet);
+
+            Bullet.Bullet _bullet = new Bullet.Bullet(this);
+            _bullet.body = _spBullet;
+            Components.Add(_bullet);
+
 
 
             //-------------------------------------------------------------------dodajanje enemijev
@@ -137,14 +144,8 @@ namespace Invasion_of_the_bunny_snatchers
             _aspEnemy.animations.Add(new Rectangle(3, 7, 43, 19));
             _aspEnemy.animations.Add(new Rectangle(56, 3, 43, 22));
             _aspEnemy.scale = new Vector2(2f, 2f);
-            _aspEnemy.position = new Vector2(50, 200);
             _aspEnemy.currentAnim = 0;
             _aspEnemy.center = new Vector2(21,11);
-            _aspEnemy.slika = true;
-            _aspEnemy.powerup = false;
-            _aspEnemy.attack = false;
-            _aspEnemy.shootSpeed = 6f;
-            _aspEnemy.enemyType = 0;
             _aspEnemy.orientacija = SpriteEffects.None;
             Components.Add(_aspEnemy);
 
@@ -154,17 +155,39 @@ namespace Invasion_of_the_bunny_snatchers
             _aspEnemy2.animations.Add(new Rectangle(1, 36, 43, 20));
             _aspEnemy2.animations.Add(new Rectangle(56, 29, 43, 22));
             _aspEnemy2.scale = new Vector2(2f, 2f);
-            _aspEnemy2.position = new Vector2(200, 200);
             _aspEnemy2.currentAnim = 1;
             _aspEnemy2.center = new Vector2(21,11);
-            _aspEnemy2.slika = true;
-            _aspEnemy2.powerup = false;
-            _aspEnemy2.attack = false;
-            _aspEnemy2.shootSpeed = 6f;
-            _aspEnemy2.enemyType = 1;
             _aspEnemy2.orientacija = SpriteEffects.FlipHorizontally;
             Components.Add(_aspEnemy2);
-            
+
+            Enemy.enemy _enemy1 = new Enemy.enemy(this);
+            _enemy1.body = _aspEnemy;
+            _enemy1.position = new Vector2(50, 200);
+            _enemy1.attack = false;
+            _enemy1.shootSpeed = 6f;
+            _enemy1.enemyType = 0;
+            _enemy1.lastFire = 0;
+            _enemy1.frameEnemy = 0;
+            _enemy1.shoot1 = Content.Load<SoundEffect>("Assets\\Sounds\\GunSound1");
+            _enemy1.shoot2 = Content.Load<SoundEffect>("Assets\\Sounds\\GunSound2");
+            _enemy1.die = Content.Load<SoundEffect>("Assets\\Sounds\\BunnyDying");
+            _enemy1.voice = Content.Load<SoundEffect>("Assets\\Sounds\\BunnySound");
+            Components.Add(_enemy1);
+
+            Enemy.enemy _enemy2 = new Enemy.enemy(this);
+            _enemy2.body = _aspEnemy2;
+            _enemy2.position = new Vector2(200, 200);
+            _enemy2.attack = false;
+            _enemy2.shootSpeed = 6f;
+            _enemy2.enemyType = 1;
+            _enemy2.lastFire = 0;
+            _enemy2.frameEnemy = 0;
+            _enemy2.shoot1 = Content.Load<SoundEffect>("Assets\\Sounds\\GunSound1");
+            _enemy2.shoot2 = Content.Load<SoundEffect>("Assets\\Sounds\\GunSound2");
+            _enemy2.die = Content.Load<SoundEffect>("Assets\\Sounds\\BunnyDying");
+            _enemy2.voice = Content.Load<SoundEffect>("Assets\\Sounds\\BunnySound");
+            Components.Add(_enemy2);
+
             //--------------------------------------------------------------------------------konec dodajanje enimejv
 
             //------------------------------------------------------------------------------dodajanje powe upov
@@ -179,14 +202,9 @@ namespace Invasion_of_the_bunny_snatchers
             List<DrawScripts.AnimSprite> _background = new List<DrawScripts.AnimSprite>();
             _background.Add(_spBackground);
 
-            List<DrawScripts.AnimSprite> _enemys = new List<DrawScripts.AnimSprite>();
-            _enemys.Add(_aspEnemy);
-            _enemys.Add(_aspEnemy2);
-            
-
-            List<DrawScripts.AnimSprite> _player = new List<DrawScripts.AnimSprite>();
-            _player.Add(_aspCharacter);
-            _player.Add(_aspCharacterLegs);
+            List<Enemy.enemy> _enemys = new List<Enemy.enemy>();
+            _enemys.Add(_enemy1);
+            _enemys.Add(_enemy2);
 
 
             List<DrawScripts.AnimSprite> _UI = new List<DrawScripts.AnimSprite>();
@@ -194,7 +212,7 @@ namespace Invasion_of_the_bunny_snatchers
             _UI.Add(_helthBar);
             _UI.Add(_LevelText);
 
-            DrawScripts.DrawInOrder _draw = new DrawScripts.DrawInOrder(this,_background,_enemys,_player,_UI);
+            DrawScripts.DrawInOrder _draw = new DrawScripts.DrawInOrder(this, _background, _enemys, _player, _UI, new List<DrawScripts.AnimSprite>());
             Components.Add(_draw);
             //--------------------------------------------------------------------------------------------------- konec dodajanja elementov v izrisevanje
             

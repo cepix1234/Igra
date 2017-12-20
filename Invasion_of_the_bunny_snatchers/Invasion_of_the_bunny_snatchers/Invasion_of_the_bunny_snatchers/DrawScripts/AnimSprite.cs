@@ -31,28 +31,12 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
         public Vector2 center { get; set; }
         public int currentAnim { get; set; }
         public Boolean slika { get; set; }
-        public Boolean powerup { get; set; }
-        public int frameEnemy { get; set; }
-        public int speed { get; set; }
-        public float shootSpeed { get; set; }
-        public Boolean multipleBoolets { get; set; }
-
-        //za tekst
         public String text { get; set; }
         public SpriteFont font { get; set; }
         public int helth { get; set; }
         public bool helthBar { get; set; }
-
-        //za bullet
-        public Vector2 direction { get; set; }
         public float rotation { get; set; }
-        public Boolean player { get; set; }
-
-        //za enemy
-        public Boolean attack { get; set; }
-        public int enemyType { get; set; }
         public SpriteEffects orientacija { get; set; }
-        public float lastFire { get; set; }
 
 
         #endregion

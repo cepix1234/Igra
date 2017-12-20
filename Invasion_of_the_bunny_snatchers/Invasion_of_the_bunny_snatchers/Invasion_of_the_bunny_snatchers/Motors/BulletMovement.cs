@@ -19,7 +19,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
     {
         DrawScripts.DrawInOrder _draw;
         Colliders.ColliderBulletscs _bulletcollider;
-        List<DrawScripts.AnimSprite> _bullets;
+        List<Bullet.Bullet> _bullets;
         public BulletMovement(Game game)
             : base(game)
         {
@@ -48,7 +48,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             _bullets = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._bullets;
             int i = 0;
             List<int> iji = new List<int>();
-            foreach(DrawScripts.AnimSprite bullet in _bullets)
+            foreach(Bullet.Bullet bullet in _bullets)
             {
                 bullet.position += bullet.direction *200 * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if(bullet.position.X < 0)

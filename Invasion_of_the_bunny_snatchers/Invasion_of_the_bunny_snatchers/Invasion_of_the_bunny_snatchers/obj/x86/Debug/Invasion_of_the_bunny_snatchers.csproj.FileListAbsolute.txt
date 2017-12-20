@@ -23,3 +23,7 @@ C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatc
 C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Enemy\Enemy.xnb
 C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\obj\x86\Debug\Invasion_of_the_bunny_snatchers.csprojResolveAssemblyReference.cache
 C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Font\Font.xnb
+C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Sounds\BunnyDying.xnb
+C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Sounds\BunnySound.xnb
+C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Sounds\GunSound1.xnb
+C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Sounds\GunSound2.xnb
