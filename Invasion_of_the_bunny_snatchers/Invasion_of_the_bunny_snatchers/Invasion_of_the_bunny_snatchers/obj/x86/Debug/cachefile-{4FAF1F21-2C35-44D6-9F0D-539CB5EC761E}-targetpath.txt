@@ -5,8 +5,14 @@ Content\Assets\Character\PowerUps.xnb
 Content\Assets\Controls\Jostick.xnb
 Content\Assets\Character\Character.xnb
 Content\Assets\Enemy\Enemy.xnb
+Content\Assets\MainMenu\Exit.xnb
+Content\Assets\MainMenu\Leaderboard.xnb
+Content\Assets\MainMenu\Mainmenu.xnb
+Content\Assets\MainMenu\Retry.xnb
+Content\Assets\MainMenu\Start.xnb
 Content\Assets\Font\Font.xnb
 Content\Assets\Sounds\BunnyDying.xnb
 Content\Assets\Sounds\BunnySound.xnb
 Content\Assets\Sounds\GunSound1.xnb
 Content\Assets\Sounds\GunSound2.xnb
+Content\Assets\Manager\Waves.xml

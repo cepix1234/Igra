@@ -65,6 +65,51 @@
       <Time>2017-10-18T20:21:32.5515258+02:00</Time>
     </Item>
     <Item>
+      <Source>Assets\MainMenu\Exit.png</Source>
+      <Name>Assets\MainMenu\Exit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\MainMenu\Exit.xnb</Output>
+      <Time>2018-01-03T23:15:39.9634859+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\MainMenu\Leaderboard.png</Source>
+      <Name>Assets\MainMenu\Leaderboard</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\MainMenu\Leaderboard.xnb</Output>
+      <Time>2018-01-03T23:15:39.9681775+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\MainMenu\Mainmenu.png</Source>
+      <Name>Assets\MainMenu\Mainmenu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\MainMenu\Mainmenu.xnb</Output>
+      <Time>2018-01-03T23:15:39.9554741+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\MainMenu\Retry.png</Source>
+      <Name>Assets\MainMenu\Retry</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\MainMenu\Retry.xnb</Output>
+      <Time>2018-01-03T23:15:39.9721834+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\MainMenu\Start.png</Source>
+      <Name>Assets\MainMenu\Start</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\MainMenu\Start.xnb</Output>
+      <Time>2018-01-03T23:15:39.9921929+01:00</Time>
+    </Item>
+    <Item>
       <Source>Assets\Font\Font.spritefont</Source>
       <Name>Assets\Font\Font</Name>
       <Importer>FontDescriptionImporter</Importer>

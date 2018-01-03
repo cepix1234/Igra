@@ -17,6 +17,7 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
     /// </summary>
     public class ColliderBulletscs : Microsoft.Xna.Framework.GameComponent
     {
+        Player.Player _aspCharacter;
         public List<Bullet.Bullet> _bullets;
         public List<DrawScripts.AnimSprite> _powerUps;
         public List<Enemy.enemy> _enemys;
@@ -35,6 +36,7 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
         public override void Initialize()
         {
             // TODO: Add your initialization code here
+            _aspCharacter = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._player;
             _bullets = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._bullets;
             _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
             _powerUps = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._powerUps;
@@ -124,6 +126,21 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
                 }else
                 {
                     //Check if player is hit
+                    if(_aspCharacter.position.X+(13*_aspCharacter.body.scale.X)>=bullet.position.X)
+                    {
+                        if(_aspCharacter.position.X-(13*_aspCharacter.body.scale.X)<=bullet.position.X)
+                        {
+                            if(_aspCharacter.position.Y+(20*_aspCharacter.body.scale.Y)>=bullet.position.Y)
+                            {
+                                if(_aspCharacter.position.Y-(20*_aspCharacter.body.scale.Y+40*_aspCharacter.legs.scale.Y)<=bullet.position.Y)
+                                {
+                                    _aspCharacter.helth -= 10;
+                                    zadetek = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
                 itiBullet++;
             }
