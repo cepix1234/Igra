@@ -30,8 +30,10 @@ namespace Invasion_of_the_bunny_snatchers.Manger
         SoundEffect _die;
         SoundEffect _voice;
         DrawScripts.AnimSprite waveText;
-        float SpawnTime = 0;
+        float SpawnTime1 = 0;
+        float SpawnTime2 = 0;
         Boolean spawn = true;
+        Player.Player _player;
         public WaveManger(Game game)
             : base(game)
         {
@@ -57,6 +59,7 @@ namespace Invasion_of_the_bunny_snatchers.Manger
             _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
             _aspEnemy1 = Game.Components.OfType<DrawScripts.AnimSprite>().ToList()[7];
             _aspEnemy2 = Game.Components.OfType<DrawScripts.AnimSprite>().ToList()[8];
+            _player = Game.Components.OfType<Player.Player>().ToList()[0];
             _waves = new List<int[]>();
             spawnPoints = new List<Vector2>() { };
             readFile();
@@ -76,8 +79,12 @@ namespace Invasion_of_the_bunny_snatchers.Manger
             {
                 SpawnEnemysOfWave(CurrentWave,gameTime);
             }
-            _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
+            if (Game.Components.OfType<DrawScripts.DrawInOrder>().ToList().Count != 0)
+            {
+                _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
+            }
             checkIfZeroEnemys();
+            checkIfEndOFWaves();
             base.Update(gameTime);
         }
 
@@ -140,23 +147,28 @@ namespace Invasion_of_the_bunny_snatchers.Manger
                 spawn = true;
                 int diss = CurrentWave + 1;
                 waveText.text = "Trenutna stopnja: "+diss;
+                int missHelth = 100 - _player.helth;
+                _player.helth +=(int)(missHelth * 0.6);
             }
         }
 
         void checkIfEndOFWaves()
         {
-            if (_enemys.Count <= 0 && !spawn && CurrentWave == 12)
+            if (_enemys.Count <= 0 && !spawn && CurrentWave >= 12)
             {
-                // show end screen 
+                _waves.Add(new int[] {_waves[CurrentWave-1][0]+ _waves[CurrentWave - 1][0]/5, _waves[CurrentWave - 1][1] + _waves[CurrentWave - 1][1] / 5 });
+                int missHelth = 100 - _player.helth;
+                _player.helth += (int)(missHelth * 0.6);
             }
         }
 
         void SpawnEnemysOfWave (int wave, GameTime gameTime)
         {
             Random rnd = new Random();
-            SpawnTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            SpawnTime1 += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            SpawnTime2 += (float)gameTime.ElapsedGameTime.TotalSeconds;
             //spawn mele
-            if (_waves[wave][0] > 0 && SpawnTime >= 1)
+            if (_waves[wave][0] > 0 && SpawnTime1 >= 1)
             {
                 int randomSP = rnd.Next(0, 16);
                 Enemy.enemy enemy = new Enemy.enemy(this.Game);
@@ -171,13 +183,14 @@ namespace Invasion_of_the_bunny_snatchers.Manger
                 enemy.shoot2 = _shoot2;
                 enemy.die = _die;
                 enemy.voice = _voice;
+                enemy.orientacija = SpriteEffects.None;
                 this.Game.Components.Add(enemy);
                 _enemys.Add(enemy);
                 _waves[wave][0]--;
-                SpawnTime = 0;
+                SpawnTime1 = 0;
             }
 
-            if (_waves[wave][1] > 0 && SpawnTime >= 1)
+            if (_waves[wave][1] > 0 && SpawnTime2 >= 1)
             {
                 //spawn range
                 int randomSP = rnd.Next(0, 16);
@@ -193,16 +206,22 @@ namespace Invasion_of_the_bunny_snatchers.Manger
                 enemy.shoot2 = _shoot2;
                 enemy.die = _die;
                 enemy.voice = _voice;
+                enemy.orientacija = SpriteEffects.None;
                 this.Game.Components.Add(enemy);
                 _enemys.Add(enemy);
                 _waves[wave][1]--;
-                SpawnTime = 0;
+                SpawnTime2 = 0;
             }
 
             if(_waves[wave][0] == 0 && _waves[wave][1] == 0)
             {
                 spawn = false;
             }
+        }
+
+        public int getCurrentWave()
+        {
+            return CurrentWave;
         }
     }
 }

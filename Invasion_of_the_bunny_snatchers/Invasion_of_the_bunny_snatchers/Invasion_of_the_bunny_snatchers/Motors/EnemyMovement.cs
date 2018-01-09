@@ -48,7 +48,11 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         public override void Update(GameTime gameTime)
         {
             // TODO: Add your update code here
-            _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
+            if(Game.Components.OfType<DrawScripts.DrawInOrder>().ToList().Count != 0)
+            {
+
+                _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
+            }
             EnemyAI(gameTime);
             base.Update(gameTime);
         }
@@ -65,14 +69,14 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                 double kot = Math.Atan2(_player.position.Y - enemy.position.Y, _player.position.X - enemy.position.X);
                 if (kot <= 1.66 && kot >= -1.56)
                 {
-                    enemy.body.orientacija = SpriteEffects.FlipHorizontally;
+                    enemy.orientacija = SpriteEffects.FlipHorizontally;
                 }
                 else
                 {
-                    enemy.body.orientacija = SpriteEffects.None;
+                    enemy.orientacija = SpriteEffects.None;
                     kot = kot - 3.2f;
                 }
-                enemy.body.rotation = (float)kot;
+                enemy.rotation = (float)kot;
 
 
                 //movement for enemy based on type

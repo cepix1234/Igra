@@ -84,10 +84,25 @@ namespace Invasion_of_the_bunny_snatchers.Motors
                     shoot(_mouseState);
                 }
                lastFire = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                lastFire = 0;
+               lastFire = 0;
             }
+            CheckHelth();
             base.Update(gameTime);
         }
+
+        void CheckHelth ()
+        {
+            if(_player.helth <= 0)
+            {
+                Manger.WaveManger waveManager = this.Game.Components.OfType<Manger.WaveManger>().ToArray()[0];
+                int waves = waveManager.getCurrentWave();
+                this.Game.Components.Clear();
+                Scenes.EndScreen end = new Scenes.EndScreen(this.Game);
+                end.Waves = waves+1;
+                this.Game.Components.Add(end);
+            }
+        }
+
 
         public void multyShot(MouseState _mouseState)
         {

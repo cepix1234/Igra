@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Xml;
 
 
 namespace Invasion_of_the_bunny_snatchers.Scenes
@@ -19,6 +20,12 @@ namespace Invasion_of_the_bunny_snatchers.Scenes
     {
         List<DrawScripts.AnimSprite> _UI;
         DrawScripts.AnimSprite _LeaderBoardText;
+        String _file = "Content/Assets/Leaderboard/LeaderBoard.xml";
+        List<String[]> _LeaderBoard;
+        int top;
+        int bot;
+        int PrevisuMouseVale;
+        float dissTime = 0;
         public LeaderBoard(Game game)
             : base(game)
         {
@@ -92,6 +99,13 @@ namespace Invasion_of_the_bunny_snatchers.Scenes
             DrawScripts.DrawMenu _draw = new DrawScripts.DrawMenu(this.Game, _UI);
             this.Game.Components.Add(_draw);
 
+            PrevisuMouseVale = 0;
+
+            top = 0;
+            bot = 14;
+            _LeaderBoard = new List<string[]>();
+            fillLeaderBoard();
+            makeTextbetween();
             this.Game.IsMouseVisible = true;
             base.Initialize();
         }
@@ -103,7 +117,11 @@ namespace Invasion_of_the_bunny_snatchers.Scenes
         public override void Update(GameTime gameTime)
         {
             // TODO: Add your update code here
-            CheckMousePosOnCLick();
+            dissTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (dissTime >= 1)
+            {
+                CheckMousePosOnCLick();
+            }
             base.Update(gameTime);
         }
 
@@ -134,10 +152,71 @@ namespace Invasion_of_the_bunny_snatchers.Scenes
                     this.Game.Exit();
                 }
             }
-            if(mouseState.ScrollWheelValue == 0)
+            if(mouseState.ScrollWheelValue != PrevisuMouseVale)
             {
-
+                int diff = PrevisuMouseVale - mouseState.ScrollWheelValue;
+                if(diff > 0)
+                {
+                    top = Math.Min(Math.Max(++top, 0), _LeaderBoard.Count-14);
+                    bot = Math.Min(Math.Max(++bot, 14), _LeaderBoard.Count);
+                }
+                else
+                {
+                    top = Math.Min(Math.Max(--top, 0), _LeaderBoard.Count - 14);
+                    bot = Math.Min(Math.Max(--bot, 14), _LeaderBoard.Count);
+                }
+                PrevisuMouseVale = mouseState.ScrollWheelValue;
+                makeTextbetween();
             }
+        }
+
+        void fillLeaderBoard()
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(_file);
+
+            XmlNodeList name = xmlDoc.GetElementsByTagName("name");
+            XmlNodeList score = xmlDoc.GetElementsByTagName("score");
+            for (int i = 0; i < name.Count; i++)
+            {
+                String[] person = new String[] { name[i].InnerText, score[i].InnerText };
+                _LeaderBoard.Add(person);
+            }
+
+            Boolean switched = false;
+            do
+            {
+                switched = false;
+                for (int y = 1; y < _LeaderBoard.Count; y++)
+                {
+                    if (Int32.Parse(_LeaderBoard[y][1]) > Int32.Parse(_LeaderBoard[y - 1][1]))
+                    {
+                        switched = true;
+                        String[] temp = _LeaderBoard[y];
+                        _LeaderBoard[y] = _LeaderBoard[y - 1];
+                        _LeaderBoard[y - 1] = temp;
+                    }
+                }
+            } while (switched);
+        }
+
+        void makeTextbetween()
+        {
+            _LeaderBoardText.text = "";
+            if(_LeaderBoard.Count >= 14)
+            {
+                for (int i = top; i < bot; i++)
+                {
+                    _LeaderBoardText.text += _LeaderBoard[i][0] + " -- " + _LeaderBoard[i][1] + "\n";
+                }
+            }else
+            {
+                for (int i = top; i < _LeaderBoard.Count; i++)
+                {
+                    _LeaderBoardText.text += _LeaderBoard[i][0] + " -- " + _LeaderBoard[i][1] + "\n";
+                }
+            }
+            
         }
     }
 }

@@ -52,9 +52,12 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
         public override void Update(GameTime gameTime)
         {
             // TODO: Add your update code here
-            _bullets = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._bullets;
-            _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
-            _powerUps = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._powerUps;
+            if (Game.Components.OfType<DrawScripts.DrawInOrder>().ToList().Count != 0)
+            {
+                _bullets = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._bullets;
+                _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
+                _powerUps = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._powerUps;
+            }
             bullethitrabit();
             base.Update(gameTime);
         }       
@@ -81,7 +84,7 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
                             zadetiEnemyi.Add(itiEnemy);
                             Random rnd = new Random();
                             int randZaDrop = rnd.Next(0, 101);
-                            if(randZaDrop <50)
+                            if(randZaDrop <20)
                             {
                                 int randZaKateriDrop = rnd.Next(0, 101);
                                 if(randZaKateriDrop >= 0 && randZaKateriDrop < 34)

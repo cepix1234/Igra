@@ -35,8 +35,6 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
         public SpriteFont font { get; set; }
         public int helth { get; set; }
         public bool helthBar { get; set; }
-        public float rotation { get; set; }
-        public SpriteEffects orientacija { get; set; }
 
 
         #endregion

@@ -137,7 +137,6 @@ namespace Invasion_of_the_bunny_snatchers.Scenes
             _aspEnemy.scale = new Vector2(2f, 2f);
             _aspEnemy.currentAnim = 0;
             _aspEnemy.center = new Vector2(21, 11);
-            _aspEnemy.orientacija = SpriteEffects.None;
             this.Game.Components.Add(_aspEnemy);
 
             DrawScripts.AnimSprite _aspEnemy2 = new DrawScripts.AnimSprite(this.Game);
@@ -148,7 +147,6 @@ namespace Invasion_of_the_bunny_snatchers.Scenes
             _aspEnemy2.scale = new Vector2(2f, 2f);
             _aspEnemy2.currentAnim = 1;
             _aspEnemy2.center = new Vector2(21, 11);
-            _aspEnemy2.orientacija = SpriteEffects.FlipHorizontally;
             this.Game.Components.Add(_aspEnemy2);
 
             //------------------------------------------------------------------------------dodajanje powe upov

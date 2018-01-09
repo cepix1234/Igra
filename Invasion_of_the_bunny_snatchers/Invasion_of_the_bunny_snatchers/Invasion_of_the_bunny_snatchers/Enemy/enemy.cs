@@ -31,6 +31,8 @@ namespace Invasion_of_the_bunny_snatchers.Enemy
         public Boolean attack { get; set; }
         public int enemyType { get; set; }
         public float lastFire { get; set; }
+        public float rotation { get; set; }
+        public SpriteEffects orientacija { get; set; }
         public float lastvoice { get; set; }
         public SoundEffect voice { get; set; }
         public SoundEffect die { get; set; }

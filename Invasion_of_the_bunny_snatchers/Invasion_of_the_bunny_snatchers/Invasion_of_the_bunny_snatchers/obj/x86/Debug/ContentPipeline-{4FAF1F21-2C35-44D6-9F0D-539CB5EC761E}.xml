@@ -154,6 +154,24 @@
       <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\Sounds\GunSound2.xnb</Output>
       <Time>2017-12-19T18:06:41.651341+01:00</Time>
     </Item>
+    <Item>
+      <Source>Assets\MainMenu\InputBackGround.png</Source>
+      <Name>Assets\MainMenu\InputBackGround</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\MainMenu\InputBackGround.xnb</Output>
+      <Time>2018-01-04T13:46:26.3857207+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Assets\MainMenu\Save.png</Source>
+      <Name>Assets\MainMenu\Save</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\blazo\Documents\School\Tehnologija igr\Igra\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\Invasion_of_the_bunny_snatchers\bin\x86\Debug\Content\Assets\MainMenu\Save.xnb</Output>
+      <Time>2018-01-04T13:46:26.3902202+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{4FAF1F21-2C35-44D6-9F0D-539CB5EC761E}</ContentProjectGUID>

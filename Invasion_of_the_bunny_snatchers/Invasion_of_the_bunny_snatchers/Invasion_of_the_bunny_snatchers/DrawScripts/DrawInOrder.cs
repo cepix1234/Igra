@@ -65,7 +65,7 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
 
             foreach (Enemy.enemy _drawable in _enemys)
             {
-                _spriteBatch.Draw(_drawable.body.texture, _drawable.position, _drawable.body.animations[_drawable.body.currentAnim], Color.White, _drawable.body.rotation ,_drawable.body.center, _drawable.body.scale, _drawable.body.orientacija, 0f);
+                _spriteBatch.Draw(_drawable.body.texture, _drawable.position, _drawable.body.animations[_drawable.body.currentAnim], Color.White, _drawable.rotation ,_drawable.body.center, _drawable.body.scale, _drawable.orientacija, 0f);
             }
 
             foreach(Bullet.Bullet _drawable in _bullets)
@@ -84,7 +84,7 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
                 {
                     _spriteBatch.Draw(_drawable.texture, _drawable.position, _drawable.animations[_drawable.currentAnim], Color.White, 0f, _drawable.center, _drawable.scale, SpriteEffects.None, 0f);
                 }
-                else if (_drawable.helthBar)
+                else if (_drawable.helthBar && _player.helth >0)
                 {
                     Texture2D rec = new Texture2D(GraphicsDevice, _player.helth, 25);
                     Color[] data = new Color[_player.helth * 25];
@@ -94,7 +94,7 @@ namespace Invasion_of_the_bunny_snatchers.DrawScripts
                     _spriteBatch.Draw(rec, Vector2.Zero, Color.Red);
                     _spriteBatch.DrawString(_drawable.font, _player.helth.ToString() + "%", new Vector2(10, 0), Color.Black, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                 }
-                else
+                else if(_drawable.text != null)
                 {
                     _spriteBatch.DrawString(_drawable.font, _drawable.text.ToString(), _drawable.position, Color.Black, 0f, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
                 }

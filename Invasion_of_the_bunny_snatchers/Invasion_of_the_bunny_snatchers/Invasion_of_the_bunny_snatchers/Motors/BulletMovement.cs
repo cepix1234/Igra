@@ -45,7 +45,10 @@ namespace Invasion_of_the_bunny_snatchers.Motors
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            _bullets = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._bullets;
+            if(Game.Components.OfType<DrawScripts.DrawInOrder>().ToList().Count != 0)
+            {
+                _bullets = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._bullets;
+            }
             int i = 0;
             List<int> iji = new List<int>();
             foreach(Bullet.Bullet bullet in _bullets)
@@ -71,6 +74,7 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             }
             foreach (int ij in iji)
             {
+                if(ij < _bullets.Count)
                 _bullets.RemoveAt(ij);
             }
             base.Update(gameTime);

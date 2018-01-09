@@ -49,8 +49,11 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
         public override void Update(GameTime gameTime)
         {
             // TODO: Add your update code here
-            _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
-            _powerUps = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._powerUps;
+            if (Game.Components.OfType<DrawScripts.DrawInOrder>().ToList().Count != 0)
+            {
+                _enemys = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._enemys;
+                _powerUps = Game.Components.OfType<DrawScripts.DrawInOrder>().ToList()[0]._powerUps;
+            }
             BorderCollision();
             colideWithPowerup();
             colideWithEnemy(gameTime);
