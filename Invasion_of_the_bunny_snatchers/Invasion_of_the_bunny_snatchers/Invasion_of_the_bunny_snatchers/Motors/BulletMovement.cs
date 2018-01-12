@@ -74,8 +74,11 @@ namespace Invasion_of_the_bunny_snatchers.Motors
             }
             foreach (int ij in iji)
             {
-                if(ij < _bullets.Count)
-                _bullets.RemoveAt(ij);
+                if (ij < _bullets.Count)
+                {
+                    this.Game.Components.Remove(_bullets.ElementAt(ij));
+                    _bullets.RemoveAt(ij);
+                }
             }
             base.Update(gameTime);
         }

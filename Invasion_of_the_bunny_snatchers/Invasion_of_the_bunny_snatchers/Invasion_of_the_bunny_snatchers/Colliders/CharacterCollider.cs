@@ -122,6 +122,7 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
             }
             if(pickedUp)
             {
+                this.Game.Components.Remove(_powerUps.ElementAt(i));
                 _powerUps.RemoveAt(i);
             }
         }

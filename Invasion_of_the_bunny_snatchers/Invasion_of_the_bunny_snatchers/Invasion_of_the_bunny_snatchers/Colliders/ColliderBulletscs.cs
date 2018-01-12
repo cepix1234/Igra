@@ -151,10 +151,12 @@ namespace Invasion_of_the_bunny_snatchers.Colliders
             //izbrisi vse zadeto iz tabel
             if(zadetek)
             {
+                this.Game.Components.Remove(_bullets.ElementAt(itiBullet));
                 _bullets.RemoveAt(itiBullet);
             }
             foreach(int i in zadetiEnemyi)
             {
+                this.Game.Components.Remove(_enemys.ElementAt(i));
                 _enemys.RemoveAt(i);
             }
             foreach(DrawScripts.AnimSprite i in dodaniPowerupi)
