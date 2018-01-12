@@ -154,7 +154,7 @@ namespace Invasion_of_the_bunny_snatchers.Manger
 
         void checkIfEndOFWaves()
         {
-            if (_enemys.Count <= 0 && !spawn && CurrentWave >= 12)
+            if (_enemys.Count <= 0 && spawn && CurrentWave >= 12)
             {
                 _waves.Add(new int[] {_waves[CurrentWave-1][0]+ _waves[CurrentWave - 1][0]/5, _waves[CurrentWave - 1][1] + _waves[CurrentWave - 1][1] / 5 });
                 int missHelth = 100 - _player.helth;
