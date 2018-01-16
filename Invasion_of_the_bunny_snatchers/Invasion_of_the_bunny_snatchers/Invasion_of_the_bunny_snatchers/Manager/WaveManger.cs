@@ -34,6 +34,8 @@ namespace Invasion_of_the_bunny_snatchers.Manger
         float SpawnTime2 = 0;
         Boolean spawn = true;
         Player.Player _player;
+        int mele = 30;
+        int range = 30;
         public WaveManger(Game game)
             : base(game)
         {
@@ -154,9 +156,11 @@ namespace Invasion_of_the_bunny_snatchers.Manger
 
         void checkIfEndOFWaves()
         {
-            if (_enemys.Count <= 0 && spawn && CurrentWave >= 12)
+            if (_enemys.Count <= 0 && spawn && CurrentWave > 12)
             {
-                _waves.Add(new int[] {_waves[CurrentWave-1][0]+ _waves[CurrentWave - 1][0]/5, _waves[CurrentWave - 1][1] + _waves[CurrentWave - 1][1] / 5 });
+                _waves.Add(new int[] {mele+ mele/5, range + range / 5 });
+                mele = _waves[CurrentWave][0];
+                range = _waves[CurrentWave][1];
                 int missHelth = 100 - _player.helth;
                 _player.helth += (int)(missHelth * 0.6);
             }
